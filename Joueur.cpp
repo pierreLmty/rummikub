@@ -7,25 +7,30 @@ class Joueur
 {
 	private:
 	
-	int id;
-	string pseudo;
-	int score;
-	bool firstMain;
+	int id_;
+	string pseudo_;
+	int score_;
+	bool firstMain_;
 	
 	public:
 	
 	int getId()
 	{
-		return id;
+		return id_;
 	}
 	
 	string getPseudo()
 	{
-		return pseudo;
+		return pseudo_;
 	}
 	
 	int getScore()
 	{
-		return score;
+		return score_;
+	}
+	
+	bool getFisrtMain()
+	{
+		return firstMain_;
 	}
 };
