@@ -14,6 +14,8 @@ class Joueur
 	
 	public:
 	
+	Joueur(int id_, string pseudo_, int score_, bool firstMain_);
+	
 	int getId()
 	{
 		return id_;
