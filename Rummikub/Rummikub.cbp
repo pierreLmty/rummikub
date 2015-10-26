@@ -13,6 +13,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="include" />
 				</Compiler>
 			</Target>
 			<Target title="Release">
@@ -22,6 +23,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add directory="include" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -32,7 +34,21 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="include/Etat.h" />
+		<Unit filename="include/EtatValide.h" />
+		<Unit filename="include/EtatVerification.h" />
+		<Unit filename="include/Joker.h" />
+		<Unit filename="include/Normal.h" />
+		<Unit filename="include/Plateau.h" />
+		<Unit filename="include/Tuile.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="src/Etat.cpp" />
+		<Unit filename="src/EtatValide.cpp" />
+		<Unit filename="src/EtatVerification.cpp" />
+		<Unit filename="src/Joker.cpp" />
+		<Unit filename="src/Normal.cpp" />
+		<Unit filename="src/Plateau.cpp" />
+		<Unit filename="src/Tuile.cpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />

@@ -1,11 +1,13 @@
 #include <iostream>
-#include "Plateau.h"
+#include "plateau.h"
 
 using namespace std;
 
 int main()
 {
-	Plateau *plateau;
-	plateau = new Plateau();
-	return 0;
+    plateau * p = new plateau;
+    p->afficher();
+    p->enAttente();
+    p->afficher();
+    return 0;
 }
