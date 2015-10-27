@@ -12,6 +12,7 @@ class attente : public etat
         attente(plateau *);
         void enAttente();
         void faireVerif(){}
+        void valider(){}
         void afficher();
     private:
         plateau * plateau_;

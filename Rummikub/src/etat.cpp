@@ -7,3 +7,4 @@ etat::etat(){}
 void etat::enAttente(){}
 void etat::afficher(){}
 void etat::faireVerif(){}
+void etat::valider(){}

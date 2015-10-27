@@ -10,6 +10,7 @@ class etat
         virtual void enAttente() = 0;
         virtual void faireVerif() = 0;
         virtual void afficher() = 0;
+        virtual void valider() = 0;
     private:
 };
 

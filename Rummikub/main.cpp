@@ -6,8 +6,15 @@ using namespace std;
 int main()
 {
     plateau * p = new plateau;
-    p->afficher();
     p->enAttente();
-    p->afficher();
+    p->faireVerif();
+    p->valider();
+    p->enAttente();
+    p->faireVerif();
+    p->valider();
+    p->enAttente();
+    p->faireVerif();
+    p->valider();
+    p->enAttente();
     return 0;
 }
