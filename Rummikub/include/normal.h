@@ -1,13 +1,14 @@
-#ifndef JOKER_H
-#define JOKER_H
+#ifndef NORMAL_H
+#define NORMAL_H
+
+#include "tuile.h"
 
 using namespace std;
 
-class Joker : public Tuile
+class normal : public tuile
 {
     public:
-        Joker(int, int, string);
-        virtual ~Joker();
+        normal(int, int, string);
         int getId();
         int getValeur();
         string getCouleur();
@@ -18,4 +19,4 @@ class Joker : public Tuile
         string couleur_;
 };
 
-#endif // JOKER_H
+#endif // NORMAL_H
