@@ -17,8 +17,8 @@ void valide::valider(){
         for(unsigned int j =0; j<mat.size(); ++j){
             if(!tab.empty()){
                 if(mat[i][0] == 0){
-                    plateau_->setPlateau(tab.back(), i, j);
-                    tab.pop_back();
+                    plateau_->setPlateau(tab.front(), i, j);
+                    tab.erase(tab.begin());
                 }
             }
         }
