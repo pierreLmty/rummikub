@@ -15,7 +15,7 @@ class tuileFactory : public factory
         tuile *createTuile(string, int, int, string);
     protected:
     private:
-        tuile * tuile_;
+        tuile *tuile_;
 };
 
 #endif // TUILEFACTORY_H

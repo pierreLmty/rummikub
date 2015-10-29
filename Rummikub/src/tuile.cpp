@@ -5,6 +5,6 @@ using namespace std;
 
 tuile::tuile(){}
 
-string getCouleur(){}
-int getValeur(){}
-int getId(){}
+string tuile::getCouleur(){}
+int tuile::getValeur(){}
+int tuile::getId(){}

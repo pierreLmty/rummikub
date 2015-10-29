@@ -19,3 +19,8 @@ string joker :: getCouleur()
 {
     return couleur_;
 }
+
+void joker::setValeur(int valeur)
+{
+    valeur_ = valeur;
+}

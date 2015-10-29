@@ -1,17 +1,15 @@
 #ifndef JOKER_H
 #define JOKER_H
 
-#include "tuile.h"
-
 using namespace std;
 
-class joker : public tuile
+class Joker : public Tuile
 {
     public:
-        joker(int, int, string);;
+        Joker(int, int, string);
+        virtual ~Joker();
         int getId();
         int getValeur();
-        void setValeur(int);
         string getCouleur();
     protected:
     private:

@@ -7,7 +7,7 @@ class factory
 {
     public:
         factory();
-        virtual tuile *createTuile(string) = 0;
+        virtual tuile *createTuile(string, int, int, string) = 0;
     protected:
     private:
 };

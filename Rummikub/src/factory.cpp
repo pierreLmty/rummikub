@@ -5,4 +5,4 @@ using namespace std;
 
 factory::factory(){}
 
-tuile *createTuile(string){}
+tuile *createTuile(string type, int id, int valeur, string couleur){}
