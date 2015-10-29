@@ -11,16 +11,16 @@ class verification : public etat
         verification(plateau *);
         void faireVerif();
         void afficher();
-        bool longueurMin(vector<int>);
-        bool longueurMax(vector<int>);
-        bool longueurMaxBC(vector<int>);
-        bool problemeCouleurSuite(vector<int>);
-        bool problemeNumeroSuite(vector<int>);
-        bool problemeCouleurBC(vector<int>);
-        bool problemeNumeroBC(vector<int>);
-        bool verifSuite(vector<int>, bool, bool);
-        bool verifBC(vector<int>, bool, bool);
-        bool fisrtMain(vector<int>, bool, bool);
+        bool longueurMin(vector<tuile *>);
+        bool longueurMax(vector<tuile *>);
+        bool longueurMaxBC(vector<tuile *>);
+        bool problemeCouleurSuite(vector<tuile *>);
+        bool problemeNumeroSuite(vector<tuile *>);
+        bool problemeCouleurBC(vector<tuile *>);
+        bool problemeNumeroBC(vector<tuile *>);
+        bool verifSuite(vector<tuile *>, bool, bool);
+        bool verifBC(vector<tuile *>, bool, bool);
+        bool firstMain(vector<tuile *>, bool, bool);
         void enAttente(){}
         void valider(){}
     private:

@@ -2,6 +2,7 @@
 #define PLATEAU_H
 #include "etat.h"
 #include <vector>
+#include "tuile.h"
 
 using namespace std;
 
@@ -18,20 +19,20 @@ public:
     void valider();
     void enAttente();
     void afficher();
-    vector<int> getList();
-    void setList(int);
+    vector<tuile *> getList();
+    void setList(tuile *);
     bool emptyList();
     void clearTab();
-    vector<vector<int> > getPlateau();
-    void setPlateau(int, int, int);
+    vector<vector<tuile *> > getPlateau();
+    void setPlateau(tuile *, int, int);
 
 private:
     etat * etatAttente_;
     etat * etatVerification_;
     etat * etatCourant_;
     etat * etatValide_;
-    vector<vector<int> > mat;
-    vector<int> tab;
+    vector<vector<tuile *> > mat_;
+    vector<tuile *> tab_;
 };
 
 #endif // PLATEAU_H

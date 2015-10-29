@@ -11,7 +11,7 @@ plateau::plateau(){
     etatAttente_ = new attente(this);
     etatVerification_ = new verification(this);
     etatValide_ = new valide(this);
-    mat.resize(13, std::vector<int>(13, 0));
+    mat_.resize(13, std::vector<tuile *>(13, NULL));
 }
 
 etat *plateau::getState(){
@@ -48,35 +48,35 @@ void plateau::enAttente(){
 
 void plateau::afficher(){
     cout << endl;
-    for(unsigned int i=0; i< mat.size(); ++i){
-        for(unsigned int j=0; j< mat.size(); ++j){
-            cout << mat[i][j];
+    for(unsigned int i=0; i < mat_.size(); ++i){
+        for(unsigned int j=0; j < mat_.size(); ++j){
+            cout << mat_.at(i).at(j);
         }
         cout << " | " << endl;
     }
     etatCourant_->afficher();
 }
 
-vector<int> plateau::getList(){
-    return tab;
+vector<tuile *> plateau::getList(){
+    return tab_;
 }
 
-void plateau::setList(int a){
-    tab.push_back(a);
+void plateau::setList(tuile * a){
+    tab_.push_back(a);
 }
 
 bool plateau::emptyList(){
-    return tab.empty();
+    return tab_.empty();
 }
 
 void plateau::clearTab(){
-    tab.clear();
+    tab_.clear();
 }
 
-vector<vector<int> > plateau::getPlateau(){
-    return mat;
+vector<vector<tuile *> > plateau::getPlateau(){
+    return mat_;
 }
 
-void plateau::setPlateau(int a, int i, int j){
-    mat[i][j] = a;
+void plateau::setPlateau(tuile * a, int i, int j){
+    mat_[i][j] = a;
 }

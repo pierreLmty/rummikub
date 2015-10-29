@@ -11,8 +11,8 @@ valide::valide(plateau * p)
 }
 
 void valide::valider(){
-    vector<int> tab = plateau_->getList();
-    vector<vector<int> > mat = plateau_->getPlateau();
+    vector<tuile *> tab = plateau_->getList();
+    vector<vector<tuile *> > mat = plateau_->getPlateau();
     for(unsigned int i = 0; i<mat.size(); ++i){
         for(unsigned int j =0; j<mat.size(); ++j){
             if(!tab.empty()){

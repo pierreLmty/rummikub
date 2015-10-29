@@ -1,6 +1,9 @@
 #include "attente.h"
 #include <iostream>
 #include <vector>
+#include "tuile.h"
+#include "normal.h"
+#include <string>
 
 using namespace std;
 
@@ -9,12 +12,20 @@ attente::attente(plateau * p){
 }
 
 void attente::enAttente(){
-    int a = 0;
+    tuile * t;
+    int val;
+    string couleur;
     plateau_->clearTab();
-    while(a != -1){
-        cin >> a;
-        if(a != -1){
-            plateau_->setList(a);
+    while(val != -1){
+        cout << "Valeur : ";
+        cin >> val;
+        if(val != -1){
+            cout << "Couleur : ";
+            cin >> couleur;
+            t = new normal(1, val, couleur);
+            cout << t << endl;
+            cout << t->getValeur() << endl;
+            plateau_->setList(t);
         }
     }
     if(!plateau_->emptyList())
