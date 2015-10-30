@@ -37,7 +37,10 @@ void pioche::distribuer()
 {
     for(int i=1; i<= 13; ++i)
     {
-        //foreach sur tableau de joueur
+        for(vector<joueur *>::iterator i = listeJoueur.begin(); i != listeJoueur.end();++i)
+        {
+            //envoyer la tuile dans le chevalet du joueur
+        }
     }
 }
 
