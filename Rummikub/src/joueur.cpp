@@ -4,10 +4,7 @@ using namespace std;
 
 joueur::joueur(){
     firstMain_ = true;
-    chevalet_.push_back(9);
-    chevalet_.push_back(10);
-    chevalet_.push_back(11);
-    chevalet_.push_back(12);
+    chevalet_ = new chevalet;
 }
 
 bool joueur::getFirstMain(){
@@ -22,10 +19,14 @@ int joueur::getId(){
     return id_;
 }
 
-vector<int> joueur::getChevalet(){
+chevalet * joueur::getChevalet(){
     return chevalet_;
 }
 
-void joueur::retirerTuile(int tuile){
-    chevalet_.erase(chevalet_.begin()+tuile);
+void joueur::setChevalet(tuile * t){
+    chevalet_->addTuile(t);
+}
+
+void joueur::retirerTuile(tuile * tuile){
+    chevalet_->deleteTuile(tuile);
 }

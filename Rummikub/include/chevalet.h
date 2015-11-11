@@ -11,6 +11,8 @@ class chevalet
         chevalet();
         void trierChevalet();
         bool getTuile(tuile*);
+        void addTuile(tuile*);
+        void deleteTuile(tuile*);
     private:
         vector<tuile *> chevalet_;
 };
