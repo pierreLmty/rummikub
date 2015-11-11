@@ -29,3 +29,8 @@ void normal :: setEmplacement(int e)
 {
     emplacement_ = e;
 }
+
+string normal::toString()
+{
+    cout << id_ << " " << valeur_ << " " << couleur_ << " " << emplacement_ << endl;
+}

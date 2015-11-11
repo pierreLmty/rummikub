@@ -10,3 +10,4 @@ int tuile::getValeur(){}
 int tuile::getId(){}
 int tuile::getEmplacement(){}
 void tuile::setEmplacement(int){}
+string tuile::toString(){}

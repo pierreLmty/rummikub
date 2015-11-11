@@ -2,6 +2,7 @@
 #define JOKER_H
 
 #include "tuile.h"
+#include <iostream>
 
 using namespace std;
 
@@ -15,6 +16,7 @@ class joker : public tuile
         string getCouleur();
         int getEmplacement();
         void setEmplacement(int);
+        string toString();
     protected:
     private:
         int id_;

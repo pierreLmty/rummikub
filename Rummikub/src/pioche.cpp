@@ -2,6 +2,7 @@
 #include "tuile.h"
 
 #include <algorithm>
+#include <ctime>
 #include "tuileFactory.h"
 
 using namespace std;
@@ -10,6 +11,7 @@ pioche::pioche()
 {
     piocheListe_.resize(106);
     fact_ = new tuileFactory();
+    createPioche();
 }
 
 void pioche::createPioche()
@@ -30,14 +32,15 @@ void pioche::createPioche()
     piocheListe_[indice] = fact_->createTuile("joker", indice, 30, "noir");
     ++indice;
     piocheListe_[indice] = fact_->createTuile("joker", indice, 30, "rouge");
+    srand(time(0));
     random_shuffle (piocheListe_.begin(), piocheListe_.end());
 }
 
 void pioche::distribuer(vector<joueur *> listeJoueur)
 {
-    for(int i=1; i<= 13; ++i)
+    for(unsigned int i=1; i<= 13; ++i)
     {
-        for(int j = 0; j != listeJoueur.size();++j)
+        for(unsigned int j = 0; j != listeJoueur.size();++j)
         {
             listeJoueur[j]->setChevalet(piocher());
         }
@@ -47,6 +50,7 @@ void pioche::distribuer(vector<joueur *> listeJoueur)
 tuile *pioche::piocher()
 {
     tuile * t = piocheListe_.at(0);
+    t->setEmplacement(1);
     piocheListe_.erase(piocheListe_.begin());
     return t;
 }

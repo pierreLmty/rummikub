@@ -34,3 +34,8 @@ void joker :: setEmplacement(int e)
 {
     emplacement_ = e;
 }
+
+string joker::toString()
+{
+    cout << id_ << " " << valeur_ << " " << couleur_ << " " << emplacement_ << endl;
+}

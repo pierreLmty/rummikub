@@ -12,12 +12,15 @@ class joueur
         bool getFirstMain();
         void setFirstMain(bool);
         int getId();
+        int getScore();
+        void setScore(int);
         chevalet *getChevalet();
         void setChevalet(tuile *);
         void retirerTuile(tuile *);
     private:
         bool firstMain_;
         int id_;
+        int score_;
         chevalet * chevalet_;
 };
 

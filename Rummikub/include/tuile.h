@@ -13,6 +13,7 @@ class tuile
         virtual int getId() = 0;
         virtual int getEmplacement() = 0;
         virtual void setEmplacement(int) = 0;
+        virtual string toString() = 0;
     protected:
     private:
         int emplacement_;//0 : pioche, 1 : chevalet, 2 : plateau
