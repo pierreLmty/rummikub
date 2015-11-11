@@ -33,18 +33,20 @@ void pioche::createPioche()
     random_shuffle (piocheListe_.begin(), piocheListe_.end());
 }
 
-void pioche::distribuer()
+void pioche::distribuer(vector<joueur *> listeJoueur)
 {
     for(int i=1; i<= 13; ++i)
     {
-        for(vector<joueur *>::iterator i = listeJoueur.begin(); i != listeJoueur.end();++i)
+        for(int j = 0; j != listeJoueur.size();++j)
         {
-            //envoyer la tuile dans le chevalet du joueur
+            listeJoueur[j]->setChevalet(piocher());
         }
     }
 }
 
 tuile *pioche::piocher()
 {
-    return piocheListe_.at(0);
+    tuile * t = piocheListe_.at(0);
+    piocheListe_.erase(piocheListe_.begin());
+    return t;
 }

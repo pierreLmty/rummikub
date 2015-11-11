@@ -3,7 +3,7 @@
 
 using namespace std;
 
-joker::joker(int id, int valeur, string couleur) : id_(id), valeur_(30), couleur_(couleur) {}
+joker::joker(int id, int valeur, string couleur, int emplacement) : id_(id), valeur_(30), couleur_(couleur), emplacement_(emplacement) {}
 
 int joker :: getId()
 {
@@ -23,4 +23,14 @@ string joker :: getCouleur()
 void joker::setValeur(int valeur)
 {
     valeur_ = valeur;
+}
+
+int joker :: getEmplacement()
+{
+    return emplacement_;
+}
+
+void joker :: setEmplacement(int e)
+{
+    emplacement_ = e;
 }

@@ -4,6 +4,7 @@
 #include "tuile.h"
 #include <vector>
 #include "factory.h"
+#include "joueur.h"
 
 using namespace std;
 
@@ -12,7 +13,7 @@ class pioche
     public:
         pioche();
         void createPioche();
-        void distribuer();
+        void distribuer(vector<joueur *>);
         tuile *piocher();
     protected:
     private:
