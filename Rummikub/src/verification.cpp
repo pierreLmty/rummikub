@@ -1,6 +1,7 @@
 #include "verification.h"
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -71,14 +72,16 @@ bool verification::longueurMaxBC(vector<tuile *> listAVerif){
 
 bool verification::problemeCouleurSuite(vector<tuile *> listAVerif){
     bool probCouleur = false;
-    for(unsigned int i = 0; i < listAVerif.size(); ++i){
+    for(unsigned int i = 0; i < listAVerif.size()-1; ++i){
         if(listAVerif.at(i)->getValeur() != 30){
-            //mettre les conditions correspondant au couleur lorsque les tuiles seront utilisable
-           // probCouleur = true;
+            if(listAVerif.at(i)->getCouleur() != listAVerif.at(i+1)->getCouleur() && listAVerif.at(i+1)->getValeur() != 30){
+                probCouleur = true;
+            }
         }
         if(listAVerif.at(i)->getValeur() == 30 && i != 0 && i != listAVerif.size()-1){
-            //idem qu'au dessus
-            //probCouleur = true;
+            if(listAVerif.at(i-1)->getCouleur() != listAVerif.at(i+1)->getCouleur() && listAVerif.at(i+1)->getValeur() != 30 && listAVerif.at(i-1)->getValeur() != 30){
+                probCouleur = true;
+            }
         }
     }
     return probCouleur;
@@ -89,7 +92,6 @@ bool verification::problemeNumeroSuite(vector<tuile *> listAVerif){
     if(listAVerif.front()->getValeur() == 30 && listAVerif.at(1)->getValeur() == 1){
         probNumero = true;
     }
-    //peut etre ajouter une boucle -1
     for(unsigned int i = 0; i < listAVerif.size(); ++i){
         if(listAVerif.at(i)->getValeur() == 13 && i != listAVerif.size()-1){
             probNumero = true;
@@ -121,13 +123,40 @@ bool verification::problemeNumeroSuite(vector<tuile *> listAVerif){
 }
 
 bool verification::problemeCouleurBC(vector<tuile *> listAVerif){
-    //mettre en place cette fonction lorsque la tuile seront prete
-    return false;
+    bool probCouleur = false;
+    vector<string> listCouleur;
+    for(unsigned int i = 0; i < listAVerif.size()-1; ++i){
+        vector<string>::iterator it = find(listCouleur.begin(), listCouleur.end(), listAVerif.at(i)->getCouleur());
+        if(it == listCouleur.end() && listAVerif.at(i)->getValeur() != 30){
+            listCouleur.push_back(listAVerif.at(i)->getCouleur());
+        }
+        else if(it != listCouleur.end() && listAVerif.at(i)->getValeur() != 30){
+            probCouleur = true;
+        }
+    }
+
+    for(unsigned int i = 0; i < listAVerif.size()-1; ++i){
+        if(listAVerif.at(i)->getValeur() != 30){
+            if(listAVerif.at(i)->getCouleur() == listAVerif.at(i+1)->getCouleur() && listAVerif.at(i+1)->getValeur() != 30){
+                probCouleur = true;
+            }
+        }
+        if(listAVerif.at(i)->getValeur() == 30){
+            if(listAVerif.at(i-1)->getCouleur() == listAVerif.at(i+1)->getCouleur() && listAVerif.at(i+1)->getValeur() != 30 && listAVerif.at(i-1)->getValeur() != 30){
+                probCouleur = true;
+            }
+        }
+        if(listAVerif.at(i)->getValeur() == 30 && listAVerif.at(i+1)->getValeur() == 30 && i+1 != listAVerif.size()-1){
+            if(listAVerif.at(i-1)->getCouleur() == listAVerif.at(i+2)->getCouleur() && i != 0){
+                probCouleur = true;
+            }
+        }
+    }
+    return probCouleur;
 }
 
 bool verification::problemeNumeroBC(vector<tuile *> listAVerif){
     bool probNumero = false;
-    //ICI la boucle est peut a mettre a -1
     for(unsigned int i = 0; i < listAVerif.size()-1; ++i){
         if(listAVerif.at(i)->getValeur() != 30){
             if(listAVerif.at(i)->getValeur() != listAVerif.at(i+1)->getValeur() && listAVerif.at(i+1)->getValeur() != 30){

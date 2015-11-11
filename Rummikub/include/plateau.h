@@ -3,6 +3,7 @@
 #include "etat.h"
 #include <vector>
 #include "tuile.h"
+#include "joueur.h"
 
 using namespace std;
 
@@ -25,6 +26,9 @@ public:
     void clearTab();
     vector<vector<tuile *> > getPlateau();
     void setPlateau(tuile *, int, int);
+    tuile *getTuile(int, string);
+    void setJoueur(joueur *);
+    joueur *getJoueur();
 
 private:
     etat * etatAttente_;
@@ -33,6 +37,7 @@ private:
     etat * etatValide_;
     vector<vector<tuile *> > mat_;
     vector<tuile *> tab_;
+    joueur * joueur_;
 };
 
 #endif // PLATEAU_H

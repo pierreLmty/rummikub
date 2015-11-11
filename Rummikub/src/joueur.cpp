@@ -19,14 +19,6 @@ int joueur::getId(){
     return id_;
 }
 
-int joueur::getScore(){
-    return score_;
-}
-
-void joueur::setScore(int s){
-    score_ = s;
-}
-
 chevalet * joueur::getChevalet(){
     return chevalet_;
 }
@@ -38,4 +30,8 @@ void joueur::setChevalet(tuile * t){
 void joueur::retirerTuile(tuile * tuile){
     tuile->setEmplacement(2);
     chevalet_->deleteTuile(tuile);
+}
+
+tuile *joueur::getTuile(int val, string couleur){
+    return chevalet_->getTuile(val, couleur);
 }

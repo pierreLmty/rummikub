@@ -7,16 +7,7 @@
 
 using namespace std;
 
-chevalet::chevalet(){
-    chevalet_.push_back(new normal(1, 8, "jaune"));
-    chevalet_.push_back(new normal(2, 1, "rouge"));
-    chevalet_.push_back(new normal(3, 6, "noir"));
-    chevalet_.push_back(new normal(4, 5, "jaune"));
-    chevalet_.push_back(new normal(5, 4, "bleu"));
-    chevalet_.push_back(new normal(6, 3, "rouge"));
-    chevalet_.push_back(new normal(7, 2, "noir"));
-    chevalet_.push_back(new normal(8, 1, "bleu"));
-}
+chevalet::chevalet(){}
 
 void chevalet::trierChevalet(){
     for(unsigned int i = 0; i < chevalet_.size(); ++i){
@@ -43,15 +34,14 @@ void chevalet::trierChevalet(){
     }
 }
 
-bool chevalet::getTuile(tuile * t){
-    bool tuileIn = false;
+tuile *chevalet::getTuile(int val, string couleur){
+    tuile* t;
     for(unsigned int i = 0; i < chevalet_.size(); ++i){
-        if(chevalet_[i] == t){
-            chevalet_.erase(chevalet_.begin()+i);
-            tuileIn = true;
+        if(chevalet_[i]->getCouleur() == couleur && chevalet_[i]->getValeur() == val){
+            t = chevalet_[i];
         }
     }
-    return tuileIn;
+    return t;
 }
 
 void chevalet::addTuile(tuile * t){
@@ -63,5 +53,11 @@ void chevalet::deleteTuile(tuile * t){
         if(chevalet_[i] == t){
             chevalet_.erase(chevalet_.begin()+i);
         }
+    }
+}
+
+void chevalet::afficher(){
+    for(unsigned int i = 0; i < chevalet_.size(); ++i){
+        cout << chevalet_[i]->getValeur() << endl;
     }
 }

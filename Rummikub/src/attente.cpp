@@ -15,6 +15,7 @@ void attente::enAttente(){
     tuile * t;
     int val;
     string couleur;
+    int empl;
     plateau_->clearTab();
     while(val != -1){
         cout << "Valeur : ";
@@ -22,10 +23,17 @@ void attente::enAttente(){
         if(val != -1){
             cout << "Couleur : ";
             cin >> couleur;
-            t = new normal(1, val, couleur);
-            cout << t << endl;
-            cout << t->getValeur() << endl;
-            plateau_->setList(t);
+            cout << "Emplacement : ";
+            cin >> empl;
+            if(empl == 1){
+                t = plateau_->getJoueur()->getTuile(val, couleur);
+            }else{
+                t = plateau_->getTuile(val, couleur);
+            }
+            if(t != NULL){
+                cout << t->getValeur() << endl;
+                plateau_->setList(t);
+            }
         }
     }
     if(!plateau_->emptyList())

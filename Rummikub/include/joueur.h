@@ -17,6 +17,7 @@ class joueur
         chevalet *getChevalet();
         void setChevalet(tuile *);
         void retirerTuile(tuile *);
+        tuile *getTuile(int, string);
     private:
         bool firstMain_;
         int id_;

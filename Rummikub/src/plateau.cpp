@@ -50,9 +50,17 @@ void plateau::afficher(){
     cout << endl;
     for(unsigned int i=0; i < mat_.size(); ++i){
         for(unsigned int j=0; j < mat_.size(); ++j){
-            cout << mat_.at(i).at(j);
+            cout << "|";
+            if(mat_[i][j] != NULL){
+                cout << mat_[i][j]->getValeur() << " ";
+                cout << mat_[i][j]->getCouleur();
+            }
+            else{
+                cout << 0;
+            }
+//            cout << "|";
         }
-        cout << " | " << endl;
+        cout << "|" << endl;
     }
     etatCourant_->afficher();
 }
@@ -79,4 +87,24 @@ vector<vector<tuile *> > plateau::getPlateau(){
 
 void plateau::setPlateau(tuile * a, int i, int j){
     mat_[i][j] = a;
+}
+
+tuile *plateau::getTuile(int val, string couleur){
+    for(unsigned int i = 0; i < mat_.size(); ++i){
+        for(unsigned int j = 0; j < mat_.size(); ++j){
+            if(mat_[i][j] != NULL){
+                if(mat_[i][j]->getValeur() == val && mat_[i][j]->getCouleur() == couleur){
+                    return mat_[i][j];
+                }
+            }
+        }
+    }
+}
+
+void plateau::setJoueur(joueur * j){
+    joueur_ = j;
+}
+
+joueur *plateau::getJoueur(){
+    return joueur_;
 }

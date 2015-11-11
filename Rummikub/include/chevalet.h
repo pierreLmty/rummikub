@@ -10,9 +10,10 @@ class chevalet
     public:
         chevalet();
         void trierChevalet();
-        bool getTuile(tuile*);
+        tuile *getTuile(int, string);
         void addTuile(tuile*);
         void deleteTuile(tuile*);
+        void afficher();
     private:
         vector<tuile *> chevalet_;
 };
