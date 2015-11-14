@@ -32,8 +32,17 @@ void verification::faireVerif(){
     cout << "prob s : " << boolVerifSuite << endl;
     cout << "prob bc : " << boolVerifBC << endl;
 
-    if(boolVerifBC || boolVerifSuite){
+    if((!plateau_->getJoueur()->getFirstMain()) && boolVerifBC || boolVerifSuite){
         verif = true;
+    }
+    if(plateau_->getJoueur()->getFirstMain()){
+        bool firstMainOK = firstMain(tab, boolVerifSuite, boolVerifBC);
+        if(firstMainOK){
+            verif = true;
+        }
+        else{
+            cout << "Vous êtes à votre premier tour, il vous faut donc 30 points pour lancer la partie : ";
+        }
     }
     cout << "verification : " << verif << endl;
     if(verif){
@@ -202,19 +211,25 @@ bool verification::verifBC(vector<tuile *> listAVerif, bool boolProbCouleurBC, b
 bool verification::firstMain(vector<tuile *> listAVerif, bool boolVerifSuiteOk, bool boolVerifBCOK){
     bool firstMainOK = true;
     int cptJoker = 0;
+    int scoreList = 0;
     for(unsigned int joker = 0; joker < listAVerif.size(); ++joker){
         if(listAVerif.at(joker)->getValeur() == 30){
             cptJoker += 1;
         }
+        scoreList += listAVerif[joker]->getValeur();
     }
+    cout << "score de la liste : " << scoreList << endl;
     if(cptJoker != 0){
         firstMainOK = false;
     }
     if(!boolVerifBCOK && !boolVerifSuiteOk){
         firstMainOK = false;
     }
+    if(plateau_->getJoueur()->getFirstMain() && scoreList < 30){
+        firstMainOK = false;
+    }
     else{
-        //mettre le firstmain du joueur a faux
+        plateau_->getJoueur()->setFirstMain(false);
     }
     return firstMainOK;
 }

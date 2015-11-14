@@ -12,7 +12,16 @@ valide::valide(plateau * p)
 
 void valide::valider(){
     vector<tuile *> tab = plateau_->getList();
-    vector<vector<tuile *> > mat = plateau_->getPlateau();
+    vector<vector<tuile *> > mat;
+    for(unsigned int i = 0; i < tab.size(); ++i){
+        if(tab[i]->getEmplacement() == 1){
+            plateau_->getJoueur()->retirerTuile(tab[i]);
+        }
+        if(tab[i]->getEmplacement() == 2){
+            plateau_->retirerTuile(tab[i]);
+        }
+    }
+    mat = plateau_->getPlateau();
     for(unsigned int i = 0; i<mat.size(); ++i){
         for(unsigned int j =0; j<mat.size(); ++j){
             if(!tab.empty()){

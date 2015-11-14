@@ -101,6 +101,23 @@ tuile *plateau::getTuile(int val, string couleur){
     }
 }
 
+void plateau::retirerTuile(tuile * t){
+    /*for(vector<vector<tuile *> >::iterator i = mat_->begin(); i != mat_->end(); ++i){
+        if(i->pointer == t){
+            mat_->erase(i);
+        }
+    }*/
+    for(unsigned int i = 0; i < mat_.size(); ++i){
+        for(unsigned int j = 0; j < mat_.size(); ++j){
+            if(mat_[i][j] != NULL){
+                if(mat_[i][j] == t){
+                    mat_[i].erase(mat_[i].begin()+j);
+                }
+            }
+        }
+    }
+}
+
 void plateau::setJoueur(joueur * j){
     joueur_ = j;
 }

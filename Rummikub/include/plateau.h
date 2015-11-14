@@ -27,6 +27,7 @@ public:
     vector<vector<tuile *> > getPlateau();
     void setPlateau(tuile *, int, int);
     tuile *getTuile(int, string);
+    void retirerTuile(tuile *);
     void setJoueur(joueur *);
     joueur *getJoueur();
 
