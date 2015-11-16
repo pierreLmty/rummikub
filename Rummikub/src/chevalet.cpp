@@ -1,3 +1,11 @@
+/**
+* \file chevalet.cpp
+* \author Lemétayer Pierre - Mael Quemard
+* \version 1.0
+* \date 16 Novembre 2015
+* \brief Classe qui définit les objets de type chevalet
+*/
+
 #include "chevalet.h"
 #include "tuile.h"
 #include <algorithm>
@@ -9,6 +17,10 @@ using namespace std;
 
 chevalet::chevalet(){}
 
+/**
+* \fn void trierChevalet()
+* \brief Trie le chevalet du joueur en fonction de la valeur des tuiles
+*/
 void chevalet::trierChevalet(){
     for(unsigned int i = 0; i < chevalet_.size(); ++i){
         cout << " | " << chevalet_.at(i)->getValeur() << chevalet_.at(i)->getCouleur();
@@ -34,6 +46,13 @@ void chevalet::trierChevalet(){
     }
 }
 
+/**
+* \fn tuile * getTuile(int val, string couleur)
+* \brief Récupère un objet de type tuile du chevalet du joueur selon sa valeur et sa couleur
+* \param val la valeur de la tuile à récupérer
+* \param couleur la couleur de la tuile à récupérer
+* \return Retourne un objet tuile du chevalet
+*/
 tuile *chevalet::getTuile(int val, string couleur){
     tuile* t;
     for(unsigned int i = 0; i < chevalet_.size(); ++i){
@@ -44,10 +63,20 @@ tuile *chevalet::getTuile(int val, string couleur){
     return t;
 }
 
+/**
+* \fn void addTuile(tuile * t)
+* \brief Ajoute un objet de type tuile dans le chevalet
+* \param t un objet de type tuile
+*/
 void chevalet::addTuile(tuile * t){
     chevalet_.push_back(t);
 }
 
+/**
+* \fn void deleteTuile(tuile * t)
+* \brief Retire un objet de type tuile du chevalet
+* \param t un objet de type tuile
+*/
 void chevalet::deleteTuile(tuile * t){
     for(unsigned int i = 0; i < chevalet_.size(); ++i){
         if(chevalet_[i] == t){
@@ -56,6 +85,10 @@ void chevalet::deleteTuile(tuile * t){
     }
 }
 
+/**
+* \fn void afficher()
+* \brief Affiche l'ensemble des tuiles du chevalet
+*/
 void chevalet::afficher(){
     for(unsigned int i = 0; i < chevalet_.size(); ++i){
         cout << chevalet_[i]->getValeur() << endl;

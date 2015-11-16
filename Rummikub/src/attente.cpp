@@ -1,3 +1,11 @@
+/**
+* \file attente.cpp
+* \author Lemétayer Pierre - Mael Quemard
+* \version 1.0
+* \date 16 Novembre 2015
+* \brief Définit l'état d'attente du plateau
+*/
+
 #include "attente.h"
 #include <iostream>
 #include <vector>
@@ -11,6 +19,10 @@ attente::attente(plateau * p){
     plateau_ = p;
 }
 
+/**
+* \fn void enAttente()
+* \brief Le plateau attend que le joueur entre une série de tuile pour ensuite les faire vérifier. Si le joueur ne rentre rien, le plateau reste dans cet état d'attente
+*/
 void attente::enAttente(){
     tuile * t;
     int val;
@@ -47,6 +59,10 @@ void attente::enAttente(){
     }
 }
 
+/**
+* \fn void afficher()
+* \brief Fonction à destination du joueur pour lui indiquer que le plateau est en attente d'une liste
+*/
 void attente::afficher(){
     cout << "en attente d'une liste" << endl;
 }
