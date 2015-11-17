@@ -7,6 +7,7 @@
 * \see tuile.cpp
 */
 
+#include <sstream>
 #include <string>
 #include "normal.h"
 
@@ -70,5 +71,7 @@ void normal :: setEmplacement(int e)
 */
 string normal::toString()
 {
-    cout << id_ << " " << valeur_ << " " << couleur_ << " " << emplacement_ << endl;
+    stringstream ss;
+    ss << id_ << " " << valeur_ << " " << couleur_ << " " << emplacement_;
+    return ss.str();
 }

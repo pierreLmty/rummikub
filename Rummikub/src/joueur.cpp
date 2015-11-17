@@ -57,7 +57,7 @@ int joueur::getScore(){
 * \param score Le score du joueur
 */
 void joueur::setScore(int score){
-    score_ = score
+    score_ = score;
 }
 
 /**

@@ -91,6 +91,6 @@ void chevalet::deleteTuile(tuile * t){
 */
 void chevalet::afficher(){
     for(unsigned int i = 0; i < chevalet_.size(); ++i){
-        cout << chevalet_[i]->getValeur() << endl;
+        cout << chevalet_[i]->toString() << endl;
     }
 }
