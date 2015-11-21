@@ -21,6 +21,7 @@ class verification : public etat
         bool verifSuite(vector<tuile *>, bool, bool);
         bool verifBC(vector<tuile *>, bool, bool);
         bool firstMain(vector<tuile *>, bool, bool);
+        bool compteur30Points(vector<vector<tuile *> >);
         void enAttente(){}
         void valider(){}
     private:

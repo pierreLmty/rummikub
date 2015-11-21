@@ -20,8 +20,8 @@ public:
     void valider();
     void enAttente();
     void afficher();
-    vector<tuile *> getList();
-    void setList(tuile *);
+    vector<vector<tuile *> > getList();
+    void setList(tuile *, int);
     bool emptyList();
     void clearTab();
     vector<vector<tuile *> > getPlateau();
@@ -37,7 +37,7 @@ private:
     etat * etatCourant_;
     etat * etatValide_;
     vector<vector<tuile *> > mat_;
-    vector<tuile *> tab_;
+    vector<vector<tuile *> > tab_;
     joueur * joueur_;
 };
 

@@ -27,7 +27,7 @@ verification::verification(plateau * p)
 * \brief Lance la série de vérifications à effectuer sur les listes envoyées par le joueur
 */
 void verification::faireVerif(){
-    vector<tuile *> tab = plateau_->getList();
+    vector<vector<tuile *> > tab = plateau_->getList();
     bool verif = false;
     bool boolProbCouleurSuite = false;
     bool boolProbNumeroSuite = false;
@@ -35,31 +35,43 @@ void verification::faireVerif(){
     bool boolProbNumeroBC = false;
     bool boolVerifSuite = false;
     bool boolVerifBC = false;
-    boolProbCouleurSuite = problemeCouleurSuite(tab);
-    boolProbNumeroSuite = problemeNumeroSuite(tab);
-    boolProbCouleurBC = problemeCouleurBC(tab);
-    boolProbNumeroBC = problemeNumeroBC(tab);
-    cout << "prob c suite : " << boolProbCouleurSuite << endl;
-    cout << "prob N suite : " << boolProbNumeroSuite << endl;
-    cout << "prob c BC : " << boolProbCouleurBC << endl;
-    cout << "prob N BC : " << boolProbNumeroBC << endl;
-    boolVerifSuite = verifSuite(tab, boolProbCouleurSuite, boolProbNumeroSuite);
-    boolVerifBC = verifBC(tab, boolProbCouleurBC, boolProbNumeroBC);
-    cout << "prob s : " << boolVerifSuite << endl;
-    cout << "prob bc : " << boolVerifBC << endl;
+    bool firstMainOK = false;
 
-    if((!plateau_->getJoueur()->getFirstMain()) && boolVerifBC || boolVerifSuite){
+    int erreur = 0;
+
+    for(unsigned int i = 0; i < tab.size(); ++i){
+        boolProbCouleurSuite = problemeCouleurSuite(tab[i]);
+        boolProbNumeroSuite = problemeNumeroSuite(tab[i]);
+        boolProbCouleurBC = problemeCouleurBC(tab[i]);
+        boolProbNumeroBC = problemeNumeroBC(tab[i]);
+
+        cout << "prob c suite : " << boolProbCouleurSuite << endl;
+        cout << "prob N suite : " << boolProbNumeroSuite << endl;
+        cout << "prob c BC : " << boolProbCouleurBC << endl;
+        cout << "prob N BC : " << boolProbNumeroBC << endl;
+        boolVerifSuite = verifSuite(tab[i], boolProbCouleurSuite, boolProbNumeroSuite);
+        boolVerifBC = verifBC(tab[i], boolProbCouleurBC, boolProbNumeroBC);
+        cout << "prob s : " << boolVerifSuite << endl;
+        cout << "prob bc : " << boolVerifBC << endl;
+
+        if(!boolVerifSuite && !boolVerifBC) ++erreur;
+
+        firstMainOK = firstMain(tab[i], boolVerifSuite, boolVerifBC);
+    }
+
+    if((!plateau_->getJoueur()->getFirstMain()) && erreur == 0){
         verif = true;
     }
     if(plateau_->getJoueur()->getFirstMain()){
-        bool firstMainOK = firstMain(tab, boolVerifSuite, boolVerifBC);
-        if(firstMainOK){
+
+        if(firstMainOK && compteur30Points(tab)){
             verif = true;
         }
         else{
-            cout << "Vous êtes à votre premier tour, il vous faut donc 30 points pour lancer la partie : ";
+            cout << "Vous êtes à votre premier tour, il vous faut donc 30 points pour lancer la partie et rentrer des listes correctes : ";
         }
     }
+
     cout << "verification : " << verif << endl;
     if(verif){
         plateau_->setState(plateau_->getStateValide());
@@ -292,28 +304,37 @@ bool verification::verifBC(vector<tuile *> listAVerif, bool boolProbCouleurBC, b
 */
 bool verification::firstMain(vector<tuile *> listAVerif, bool boolVerifSuiteOk, bool boolVerifBCOK){
     bool firstMainOK = true;
-    int cptJoker = 0;
-    int scoreList = 0;
-    for(unsigned int joker = 0; joker < listAVerif.size(); ++joker){
-        if(listAVerif.at(joker)->getValeur() == 30){
-            cptJoker += 1;
-        }
-        scoreList += listAVerif[joker]->getValeur();
-    }
-    cout << "score de la liste : " << scoreList << endl;
-    if(cptJoker != 0){
-        firstMainOK = false;
-    }
+
     if(!boolVerifBCOK && !boolVerifSuiteOk){
         firstMainOK = false;
     }
-    if(plateau_->getJoueur()->getFirstMain() && scoreList < 30){
+    if(plateau_->getJoueur()->getFirstMain()){
         firstMainOK = false;
     }
     else{
         plateau_->getJoueur()->setFirstMain(false);
     }
     return firstMainOK;
+}
+
+bool verification::compteur30Points(vector<vector<tuile *> > matAVerif){
+
+    int score = 0;
+    bool compteurOK = true;
+
+    for(unsigned int i = 0; i < matAVerif.size(); ++i){
+        for(unsigned int j = 0; j < matAVerif.size(); ++j){
+            if(matAVerif[i][j] != NULL && matAVerif[i][j]->getValeur() == 30){
+                compteurOK = false;
+            }
+
+            score += matAVerif[i][j]->getValeur();
+        }
+    }
+    cout << "score de la liste/matrice : " << score << endl;
+    if(score < 30) compteurOK = false;
+
+    return compteurOK;
 }
 
 /**

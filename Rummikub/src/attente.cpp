@@ -26,6 +26,7 @@ attente::attente(plateau * p){
 void attente::enAttente(){
     tuile * t;
     int val;
+    int indiceMatTemp = 0;
     string couleur;
     int empl;
     plateau_->clearTab();
@@ -41,10 +42,22 @@ void attente::enAttente(){
                 t = plateau_->getJoueur()->getTuile(val, couleur);
             }else{
                 t = plateau_->getTuile(val, couleur);
+
+                //Ajout de la liste du plateau que le joueur vient de changer
+                /**TODO
+                * Récupérer où se trouve l'indice de la liste modifiée et là placer dans la matrice
+                */
             }
             if(t != NULL){
                 cout << t->getValeur() << endl;
-                plateau_->setList(t);
+                plateau_->setList(t, indiceMatTemp);
+            }
+        }
+        if(val == -2){//On ajoute une nouvelle liste dans la matrice temporaire
+            for(unsigned int i = 0; i<mat.size(); ++i){
+                if(tab[i][0] != NULL){
+                    indiceMatTemp = 1; //On récupère la prmière ligne disponible pour prendre une nouvelle liste
+                }
             }
         }
     }

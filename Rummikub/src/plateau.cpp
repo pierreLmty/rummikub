@@ -23,6 +23,7 @@ plateau::plateau(){
     etatVerification_ = new verification(this);
     etatValide_ = new valide(this);
     mat_.resize(13, std::vector<tuile *>(13, NULL));
+    tab_.resize(13, std::vector<tuile *>(13, NULL));
 }
 
 /**
@@ -122,7 +123,7 @@ void plateau::afficher(){
 * \brief Récupère la liste de tuiles temporaires faite par le joueur
 * \return tab_ La liste de tuile temporaire
 */
-vector<tuile *> plateau::getList(){
+vector<vector<tuile *> > plateau::getList(){
     return tab_;
 }
 
@@ -131,8 +132,8 @@ vector<tuile *> plateau::getList(){
 * \brief Ajoute une tuile à la liste temporaire qui sera vérifiée par la fonction de vérification
 * \param a Une tuile à ajouter à la liste temporaire
 */
-void plateau::setList(tuile * a){
-    tab_.push_back(a);
+void plateau::setList(tuile * a, int indice){
+    tab_[indice].push_back(a);
 }
 
 /**
@@ -141,7 +142,12 @@ void plateau::setList(tuile * a){
 * \return Retourne Vrai si la liste est vide sinon Faux
 */
 bool plateau::emptyList(){
-    return tab_.empty();
+    for(unsigned int i = 0; i < tab_.size(); ++i){
+        if(!tab_[i].empty()){
+            return false;
+        }
+    }
+    return true;
 }
 
 /**
@@ -149,7 +155,9 @@ bool plateau::emptyList(){
 * \brief Supprime tous les éléments de la liste temporaire
 */
 void plateau::clearTab(){
-    tab_.clear();
+    for(unsigned int i = 0; i < tab_.size(); ++i){
+        tab_[i].clear();
+    }
 }
 
 /**
