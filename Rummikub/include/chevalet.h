@@ -13,6 +13,8 @@ class chevalet
         tuile *getTuile(int, string);
         void addTuile(tuile*);
         void deleteTuile(tuile*);
+        int getTaille();
+        tuile * getUneTuile(int);
         void afficher();
     private:
         vector<tuile *> chevalet_;

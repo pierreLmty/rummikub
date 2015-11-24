@@ -86,6 +86,23 @@ void chevalet::deleteTuile(tuile * t){
 }
 
 /**
+* \fn void getTaille()
+* \brief Retourne la taille de la pioche
+*/
+int chevalet::getTaille(){
+    return chevalet_.size();
+}
+
+/**
+* \fn void getUneTuile(int indice)
+* \brief Retourne une tuile à un indice donné du chevalet
+* \param indice l'indice où l'on cherche la tuile
+*/
+tuile * chevalet::getUneTuile(int indice){
+    return chevalet_.at(indice);
+}
+
+/**
 * \fn void afficher()
 * \brief Affiche l'ensemble des tuiles du chevalet
 */
