@@ -14,7 +14,6 @@ int main()
     plateau * p = new plateau;
     joueur * joueurGagnant = NULL;
     unsigned int nbrJoueur = 0;
-    bool vide = false;
     int finPartie = 0;
     int score = 0;
     unsigned int aQuiLeTour = 0;
@@ -36,32 +35,29 @@ int main()
 
     do{
         do{
-            do{
-                cout << endl;
-                cout << "C'est au joueur " << aQuiLeTour +1 << " de jouer" << endl;
-                cout << "choisissez une action :" << endl << " 1. Piocher" << endl << " 2. Envoyer une liste" << endl;
-                cin >> i;
-                if(i == 1){
-                    listeJoueur[aQuiLeTour]->setChevalet(pioch->piocher());
-                    listeJoueur[aQuiLeTour]->getChevalet()->afficher();
-                }
-                else{
-                    p->enAttente();
-                    listeJoueur[aQuiLeTour]->getChevalet()->afficher();
-                    p->faireVerif();
-                    p->valider();
-                    listeJoueur[aQuiLeTour]->getChevalet()->afficher();
-                }
+            cout << endl;
+            cout << "C'est au joueur " << aQuiLeTour +1 << " de jouer" << endl;
+            cout << "choisissez une action :" << endl << " 1. Piocher" << endl << " 2. Envoyer une liste" << endl;
+            cin >> i;
+            if(i == 1){
+                listeJoueur[aQuiLeTour]->setChevalet(pioch->piocher());
+                listeJoueur[aQuiLeTour]->getChevalet()->afficher();
+            }
+            else{
+                p->enAttente();
+                listeJoueur[aQuiLeTour]->getChevalet()->afficher();
+                p->faireVerif();
+                p->valider();
+                listeJoueur[aQuiLeTour]->getChevalet()->afficher();
+            }
 
-                //Vérification si le chevalet du joueur est vide
-                if(listeJoueur[aQuiLeTour]->getChevalet()->getTaille() == 0){
-                    joueurGagnant = listeJoueur[aQuiLeTour];
-                }
+            //Vérification si le chevalet du joueur est vide
+            if(listeJoueur[aQuiLeTour]->getChevalet()->getTaille() == 0){
+                joueurGagnant = listeJoueur[aQuiLeTour];
+            }
 
-                ++aQuiLeTour;
-                if(aQuiLeTour == nbrJoueur) aQuiLeTour = 0;
-
-            }while(vide != true);
+            ++aQuiLeTour;
+            if(aQuiLeTour == nbrJoueur) aQuiLeTour = 0;
 
         }while(joueurGagnant = NULL);
 
