@@ -1,0 +1,48 @@
+#include "Vue/chevaletjoueurun.h"
+#include <QPushButton>
+#include <QSettings>
+#include <QSignalMapper>
+#include <QMessageBox>
+#include <typeinfo>
+
+using namespace std;
+
+chevaletJoueurUn::chevaletJoueurUn(joueur * j, boutonSlot * buttonS){
+    joueur_ = j;
+    bu = buttonS;
+}
+
+
+QLayout *chevaletJoueurUn::utiliserChevalet(){
+    this->setColumnMinimumWidth(12, 0);
+   // boutonSlot * bu = new boutonSlot;
+    QSignalMapper *signalMapper = new QSignalMapper(bu);
+    QObject::connect(signalMapper, SIGNAL(mapped(QString)), bu, SLOT(creerBoutonChevalet(QString)));
+    vector<tuile *> chevalet = joueur_->getChevalet()->getChevalet();
+    for(unsigned int i = 0; i < chevalet.size(); ++i){
+            QPushButton *button = new QPushButton;
+            QString val;
+            val = QString::number(chevalet[i]->getValeur());
+            QString couleur;
+            couleur = QString::fromStdString(chevalet[i]->getCouleur());
+            button->setIcon(QIcon("image/"+val+"_"+couleur+".png"));
+            button->setFixedSize(65,65);
+            button->setIconSize(QSize(65,65));
+            if(i < 14){
+                this->addWidget(button,0,i);
+            }
+            else if(i < 28){
+                this->addWidget(button, 1, i-14);
+            }
+            else if(i < 42){
+                this->addWidget(button, 2, i-28);
+            }
+            else if(i < 56){
+                this->addWidget(button, 3, i-42);
+            }
+            //Mappage, puis connexion du signal au mapper
+            signalMapper->setMapping(button, "image/"+val+"_"+couleur+".png");
+            QObject::connect(button, SIGNAL(clicked()), signalMapper, SLOT(map()));
+    }
+    return this;
+}
