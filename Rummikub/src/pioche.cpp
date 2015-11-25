@@ -54,7 +54,7 @@ void pioche::createPioche()
 */
 void pioche::distribuer(vector<joueur *> listeJoueur)
 {
-    for(unsigned int i=1; i<= 13; ++i)
+    for(unsigned int i=1; i<= 14; ++i)
     {
         for(unsigned int j = 0; j != listeJoueur.size();++j)
         {

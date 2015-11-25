@@ -30,6 +30,7 @@ public:
     void retirerTuile(tuile *);
     void setJoueur(joueur *);
     joueur *getJoueur();
+    void afficherMatTmp();
 
 private:
     etat * etatAttente_;

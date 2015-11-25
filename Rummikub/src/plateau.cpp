@@ -32,7 +32,7 @@ plateau::plateau(){
 * \return Un état du plateau
 */
 etat *plateau::getState(){
-    return etatAttente_;
+    return etatCourant_;
 }
 
 /**
@@ -238,4 +238,13 @@ void plateau::setJoueur(joueur * j){
 */
 joueur *plateau::getJoueur(){
     return joueur_;
+}
+
+void plateau::afficherMatTmp(){
+    for(int i = 0; i <tab_.size(); ++i){
+        for(int j = 0; j<tab_.size(); ++j){
+            cout << tab_[i][j];
+        }
+        cout << endl;
+    }
 }

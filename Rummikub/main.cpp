@@ -12,9 +12,9 @@ int main()
     vector<joueur *> listeJoueur;
     chevalet * chevaletTmp;
     plateau * p = new plateau;
-    joueur * joueurGagnant = NULL;
+    joueur * joueurGagnant;
     unsigned int nbrJoueur = 0;
-    int finPartie = 0;
+    bool finPartie = false;
     int score = 0;
     unsigned int aQuiLeTour = 0;
     int i,j = 0;
@@ -32,20 +32,22 @@ int main()
 
     pioche * pioch = new pioche;
     pioch->createPioche();
+    pioch->distribuer(listeJoueur);
 
     do{
         do{
             cout << endl;
             cout << "C'est au joueur " << aQuiLeTour +1 << " de jouer" << endl;
+            listeJoueur[aQuiLeTour]->getChevalet()->afficher();
             cout << "choisissez une action :" << endl << " 1. Piocher" << endl << " 2. Envoyer une liste" << endl;
             cin >> i;
             if(i == 1){
                 listeJoueur[aQuiLeTour]->setChevalet(pioch->piocher());
-                listeJoueur[aQuiLeTour]->getChevalet()->afficher();
             }
             else{
                 p->enAttente();
                 listeJoueur[aQuiLeTour]->getChevalet()->afficher();
+                p->afficherMatTmp();
                 p->faireVerif();
                 p->valider();
                 listeJoueur[aQuiLeTour]->getChevalet()->afficher();
@@ -73,14 +75,16 @@ int main()
             }
         }
 
-        joueurGagnant->setScore(score);
-        score = 0;
-        joueurGagnant = NULL;
+        if(joueurGagnant != NULL){
+            joueurGagnant->setScore(score);
+            score = 0;
+            joueurGagnant = NULL;
 
-        cout << "Recommencer une manche ?" << endl << "1. oui" << endl << "2. non" << endl;
-        cin >> j;
-        if(j == 2) finPartie = 1;
-    }while(finPartie == 0);
+            cout << "Recommencer une manche ?" << endl << "1. oui" << endl << "2. non" << endl;
+            cin >> j;
+            if(j == 2) finPartie = true;
+        }
+    }while(!finPartie);
 
     cout << "Fin de la partie" << endl;
 

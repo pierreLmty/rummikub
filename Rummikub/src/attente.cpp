@@ -24,6 +24,8 @@ attente::attente(plateau * p){
 * \brief Le plateau attend que le joueur entre une série de tuile pour ensuite les faire vérifier. Si le joueur ne rentre rien, le plateau reste dans cet état d'attente
 */
 void attente::enAttente(){
+    vector<vector<tuile *> > tab = plateau_->getList();
+    vector<vector<tuile *> > mat;
     tuile * t;
     int val;
     int indiceMatTemp = 0;

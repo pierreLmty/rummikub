@@ -333,7 +333,7 @@ bool verification::compteur30Points(vector<vector<tuile *> > matAVerif){
 
     for(unsigned int i = 0; i < matAVerif.size(); ++i){
         for(unsigned int j = 0; j < matAVerif.size(); ++j){
-            if(matAVerif[i][j] != NULL && matAVerif[i][j]->getValeur() == 30){
+            if(matAVerif[i][j] != NULL && matAVerif[i][j]->getValeur() == 30 || matAVerif[i][j]->getEmplacement() == 2){
                 compteurOK = false;
             }
 
