@@ -35,48 +35,49 @@ void verification::faireVerif(){
     bool boolProbNumeroBC = false;
     bool boolVerifSuite = false;
     bool boolVerifBC = false;
-    bool firstMainOK = false;
 
     int erreur = 0;
 
+    //Affiche le tab tempo
+    //for(int i = 0; i < tab.size(); ++i){
+    //    cout << tab[i]->getCouleur() << " " << tab[i]->getValeur();
+    //}
+
     for(unsigned int i = 0; i < tab.size(); ++i){
-        if(!tab[i].empty()){
-            boolProbCouleurSuite = problemeCouleurSuite(tab[i]);
-            boolProbNumeroSuite = problemeNumeroSuite(tab[i]);
-            boolProbCouleurBC = problemeCouleurBC(tab[i]);
-            boolProbNumeroBC = problemeNumeroBC(tab[i]);
+        boolProbCouleurSuite = problemeCouleurSuite(tab[i]);
+        boolProbNumeroSuite = problemeNumeroSuite(tab[i]);
+        boolProbCouleurBC = problemeCouleurBC(tab[i]);
+        boolProbNumeroBC = problemeNumeroBC(tab[i]);
+        cout << "prob c suite : " << boolProbCouleurSuite << endl;
+        cout << "prob N suite : " << boolProbNumeroSuite << endl;
+        cout << "prob c BC : " << boolProbCouleurBC << endl;
+        cout << "prob N BC : " << boolProbNumeroBC << endl;
+        boolVerifSuite = verifSuite(tab[i], boolProbCouleurSuite, boolProbNumeroSuite);
+        boolVerifBC = verifBC(tab[i], boolProbCouleurBC, boolProbNumeroBC);
+        cout << "prob s : " << boolVerifSuite << endl;
+        cout << "prob bc : " << boolVerifBC << endl;
 
-            cout << "prob c suite : " << boolProbCouleurSuite << endl;
-            cout << "prob N suite : " << boolProbNumeroSuite << endl;
-            cout << "prob c BC : " << boolProbCouleurBC << endl;
-            cout << "prob N BC : " << boolProbNumeroBC << endl;
-            boolVerifSuite = verifSuite(tab[i], boolProbCouleurSuite, boolProbNumeroSuite);
-            boolVerifBC = verifBC(tab[i], boolProbCouleurBC, boolProbNumeroBC);
-            cout << "prob s : " << boolVerifSuite << endl;
-            cout << "prob bc : " << boolVerifBC << endl;
-
-            if(!boolVerifSuite && !boolVerifBC) ++erreur;
-
-            firstMainOK = firstMain(tab[i], boolVerifSuite, boolVerifBC);
-        }
-
+        if(!boolVerifSuite && !boolVerifBC) ++erreur;
     }
 
-    //Dans le cas où ce n'est pas le premier tour du joueur
+    //Cas où ce n'est pas le premier tour du joueur
     if(!plateau_->getJoueur()->getFirstMain() && erreur == 0){
-        verif = true;
+           verif = true;
     }
 
-    //Dans le cas où c'est le premier tour du joueur
-    if(plateau_->getJoueur()->getFirstMain() && erreur == 0){
+   cout << "boolVerifBC : " << boolVerifBC << " - boolVerifSuite : " << boolVerifSuite << " - first : " << plateau_->getJoueur()->getFirstMain() << endl;
 
-        if(firstMainOK && compteur30Points(tab) == true){
-            verif = true;
-        }
-        else{
-            cout << "Vous êtes à votre premier tour, il vous faut donc 30 points pour lancer la partie et rentrer des listes correctes : ";
-        }
-    }
+   //Dans le cas où c'est le premier tour du joueur
+   if(plateau_->getJoueur()->getFirstMain() && erreur == 0){
+       if(compteur30Points(tab)){
+           verif = true;
+           plateau_->getJoueur()->setFirstMain(false);
+       }
+       else{
+           cout << "Vous êtes à votre premier tour, il vous faut donc 30 points pour lancer la partie et rentrer des listes correctes : ";
+           verif = false;
+       }
+   }
 
     cout << "verification : " << verif << endl;
     if(verif){
@@ -84,8 +85,9 @@ void verification::faireVerif(){
         plateau_->afficher();
     }
     else{
-        cout << "Liste(s) non valide" << endl;
+        cout << "Liste non valide" << endl;
         plateau_->setState(plateau_->getStateAttente());
+        plateau_->clearTab();
     }
 }
 
@@ -301,39 +303,18 @@ bool verification::verifBC(vector<tuile *> listAVerif, bool boolProbCouleurBC, b
 }
 
 /**
-* \fn bool firstMain(vector<tuile *> listAVerif, bool boolVerifSuiteOk, bool boolVerifBCOK)
-* \brief Intervient seulement lors du premier tour d'un joueur. Compte le nombre de joker et utilise les résultats des booleens boolVerifSuiteOK et boolVerifBCOK pour renvoyer un booleen firstMainOK à Vrai ou à Faux.
-* \param listAVerif La liste de tuile à vérifier
-* \param boolVerifSuiteOk Indique si la liste de type suite est valide ou non
-* \param boolVerifBCOK Indique si la liste de type BC est valide ou non
+* \fn bool compteur30Points(vector<tuile *> matAVerif)
+* \brief Intervient seulement lors du premier tour d'un joueur. Compte le nombre de joker, si l'ensemble des tuiles fait 30 points ou plus et si elles ne viennent pas du plateau de jeu.
+* \param matAVerif La liste de tuile à vérifier
 * \return Retourne Vrai s'il n'y a pas de problème sinon Faux
 */
-bool verification::firstMain(vector<tuile *> listAVerif, bool boolVerifSuiteOk, bool boolVerifBCOK){
-    bool firstMainOK = true;
-
-    if(!boolVerifBCOK && !boolVerifSuiteOk){
-        firstMainOK = false;
-    }
-    else{
-        plateau_->getJoueur()->setFirstMain(false);
-    }
-  //  if(plateau_->getJoueur()->getFirstMain()){
-  //      firstMainOK = false;
-  //  }
- //   else{
-    //plateau_->getJoueur()->setFirstMain(false);
-//    }
-    return firstMainOK;
-}
-
 bool verification::compteur30Points(vector<vector<tuile *> > matAVerif){
-
     int score = 0;
     bool compteurOK = true;
 
     for(unsigned int i = 0; i < matAVerif.size(); ++i){
         for(unsigned int j = 0; j < matAVerif.size(); ++j){
-            if(matAVerif[i][j] != NULL && matAVerif[i][j]->getValeur() == 30 || matAVerif[i][j]->getEmplacement() == 2){
+            if(matAVerif[i][j] != NULL && (matAVerif[i][j]->getValeur() == 30 || matAVerif[i][j]->getEmplacement() == 2)){
                 compteurOK = false;
             }
 
@@ -342,7 +323,6 @@ bool verification::compteur30Points(vector<vector<tuile *> > matAVerif){
     }
     cout << "score de la liste/matrice : " << score << endl;
     if(score < 30) compteurOK = false;
-
     return compteurOK;
 }
 
