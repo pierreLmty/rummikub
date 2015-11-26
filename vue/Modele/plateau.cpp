@@ -101,7 +101,7 @@ void plateau::enAttente(){
 * \brief Affiche le plateau de jeu (mode console uniquement)
 */
 void plateau::afficher(){
-    cout << endl;
+   /* cout << endl;
     for(unsigned int i=0; i < mat_.size(); ++i){
         for(unsigned int j=0; j < mat_.size(); ++j){
             cout << "|";
@@ -115,7 +115,7 @@ void plateau::afficher(){
 //            cout << "|";
         }
         cout << "|" << endl;
-    }
+    }*/
     etatCourant_->afficher();
 }
 

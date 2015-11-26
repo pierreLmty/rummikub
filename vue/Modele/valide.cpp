@@ -50,6 +50,7 @@ void valide::valider(){
         }
         plateau_->setState(plateau_->getStateAttente());
         plateau_->afficher();
+        plateau_->clearTab();
 
     /*vector<vector<tuile *> > tab = plateau_->getList();
     vector<vector<tuile *> > mat;

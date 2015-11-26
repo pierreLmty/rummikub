@@ -26,8 +26,8 @@ QLayout *chevaletJoueurUn::utiliserChevalet(){
             QString couleur;
             couleur = QString::fromStdString(chevalet[i]->getCouleur());
             button->setIcon(QIcon("image/"+val+"_"+couleur+".png"));
-            button->setFixedSize(65,65);
-            button->setIconSize(QSize(65,65));
+            button->setFixedSize(45,45);
+            button->setIconSize(QSize(45,45));
             if(i < 14){
                 this->addWidget(button,0,i);
             }

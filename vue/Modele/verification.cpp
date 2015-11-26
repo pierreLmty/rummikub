@@ -35,11 +35,13 @@ void verification::faireVerif(){
     bool boolProbNumeroBC = false;
     bool boolVerifSuite = false;
     bool boolVerifBC = false;
-    if(!tab.empty()){
-        for(int i = 0; i < tab.size(); ++i){
-            if(tab[i] != NULL)
-                cout << tab[i]->getCouleur() << " " << tab[i]->getValeur();
-        }
+    bool firstMainOK = false;
+
+    //Affiche le tab tempo
+    for(int i = 0; i < tab.size(); ++i){
+        cout << tab[i]->getCouleur() << " " << tab[i]->getValeur();
+    }
+
     boolProbCouleurSuite = problemeCouleurSuite(tab);
     boolProbNumeroSuite = problemeNumeroSuite(tab);
     boolProbCouleurBC = problemeCouleurBC(tab);
@@ -52,19 +54,25 @@ void verification::faireVerif(){
     boolVerifBC = verifBC(tab, boolProbCouleurBC, boolProbNumeroBC);
     cout << "prob s : " << boolVerifSuite << endl;
     cout << "prob bc : " << boolVerifBC << endl;
-}
-    if((!plateau_->getJoueur()->getFirstMain()) && boolVerifBC || boolVerifSuite){
-        verif = true;
+
+    if(!plateau_->getJoueur()->getFirstMain() && boolVerifBC || boolVerifSuite){
+           verif = true;
     }
-    if(plateau_->getJoueur()->getFirstMain()){
-        bool firstMainOK = firstMain(tab, boolVerifSuite, boolVerifBC);
-        if(firstMainOK){
-            verif = true;
-        }
-        else{
-            cout << "Vous êtes à votre premier tour, il vous faut donc 30 points pour lancer la partie : ";
-        }
-    }
+
+   cout << "boolVerifBC : " << boolVerifBC << "  boolVerifSuite : " << boolVerifSuite << "first : " << plateau_->getJoueur()->getFirstMain() << endl;
+
+   //Dans le cas où c'est le premier tour du joueur
+   if(plateau_->getJoueur()->getFirstMain() && (boolVerifBC || boolVerifSuite)){
+       if(compteur30Points(tab)){
+           verif = true;
+           plateau_->getJoueur()->setFirstMain(false);
+       }
+       else{
+           cout << "Vous êtes à votre premier tour, il vous faut donc 30 points pour lancer la partie et rentrer des listes correctes : ";
+           verif = false;
+       }
+   }
+
     cout << "verification : " << verif << endl;
     if(verif){
         plateau_->setState(plateau_->getStateValide());
@@ -73,6 +81,7 @@ void verification::faireVerif(){
     else{
         cout << "Liste non valide" << endl;
         plateau_->setState(plateau_->getStateAttente());
+        plateau_->clearTab();
     }
 }
 
@@ -295,30 +304,31 @@ bool verification::verifBC(vector<tuile *> listAVerif, bool boolProbCouleurBC, b
 * \param boolVerifBCOK Indique si la liste de type BC est valide ou non
 * \return Retourne Vrai s'il n'y a pas de problème sinon Faux
 */
-bool verification::firstMain(vector<tuile *> listAVerif, bool boolVerifSuiteOk, bool boolVerifBCOK){
+bool verification::firstMain(vector<tuile *> listAVerif){
     bool firstMainOK = true;
-    int cptJoker = 0;
-    int scoreList = 0;
-    for(unsigned int joker = 0; joker < listAVerif.size(); ++joker){
-        if(listAVerif.at(joker)->getValeur() == 30){
-            cptJoker += 1;
-        }
-        scoreList += listAVerif[joker]->getValeur();
-    }
-    cout << "score de la liste : " << scoreList << endl;
-    if(cptJoker != 0){
-        firstMainOK = false;
-    }
-    if(!boolVerifBCOK && !boolVerifSuiteOk){
-        firstMainOK = false;
-    }
-    if(plateau_->getJoueur()->getFirstMain() && scoreList < 30){
-        firstMainOK = false;
-    }
-    else{
-        plateau_->getJoueur()->setFirstMain(false);
-    }
+   // bool compteur = compteur30Points(listAVerif);
+
     return firstMainOK;
+}
+
+bool verification::compteur30Points(vector<tuile *> matAVerif){
+    cout << "ee";
+    int score = 0;
+    bool compteurOK = true;
+
+    for(unsigned int i = 0; i < matAVerif.size(); ++i){
+     //   for(unsigned int j = 0; j < matAVerif.size(); ++j){
+            if(matAVerif[i] != NULL && (matAVerif[i]->getValeur() == 30 || matAVerif[i]->getEmplacement() == 2)){
+                compteurOK = false;
+            }
+
+            if(matAVerif[i] != NULL) score += matAVerif[i]->getValeur();
+      //  }
+    }
+    cout << "score de la liste/matrice : " << score << " "<< compteurOK << endl;
+    if(score < 30) compteurOK = false;
+    cout << compteurOK << endl;
+    return compteurOK;
 }
 
 /**
