@@ -23,8 +23,7 @@ vuePrincipale::vuePrincipale(plateau * p, pioche * laPioche, boutonSlot * b, QWi
     layoutInfo_ = new QVBoxLayout;
     pioche_ = new QPushButton("piocher");
     verifier_ = new QPushButton("verifier");
-    trier_ = new QPushButton("Trier chevalet");
-    ajoutListe_ = new QPushButton("Ajouter une liste");
+    trier_ = new QPushButton("Trier chevalet par couleur");
     chevaletWidget_ = new QWidget;
     pioch = laPioche;
     boutonSlot_ = b;
@@ -46,13 +45,11 @@ vuePrincipale::vuePrincipale(plateau * p, pioche * laPioche, boutonSlot * b, QWi
     pioche_->setFixedSize(120,35);
     verifier_->setFixedSize(120,35);
     trier_->setFixedSize(120,35);
-    ajoutListe_->setFixedSize(120,35);
 
     //Ajout des différents layouts et boutons
     layoutInfo_->addWidget(pioche_);
     layoutInfo_->addWidget(verifier_);
     layoutInfo_->addWidget(trier_);
-    layoutInfo_->addWidget(ajoutListe_);
     layoutPrincipale_->addWidget(hud);
     layoutPrincipale_->addLayout(layout_);
     layoutPrincipale_->addLayout(layoutDessous_);
@@ -64,8 +61,7 @@ vuePrincipale::vuePrincipale(plateau * p, pioche * laPioche, boutonSlot * b, QWi
     QObject::connect(pioche_, SIGNAL(clicked()), this, SLOT(piocher()));
     QObject::connect(verifier_, SIGNAL(clicked()), this, SLOT(verifier()));
     QObject::connect(trier_, SIGNAL(clicked()), this, SLOT(trier()));
-    QObject::connect(ajoutListe_, SIGNAL(clicked()), this, SLOT(nouvelleListe()));
-    plateau_->enAttente();
+   // plateau_->enAttente();
     this->setObjectName(name);
     connect(this,SIGNAL(changeInterface(QString)),qobject_cast<fenetre *>(f),SLOT(changerFenetre(QString)));
 }
@@ -108,7 +104,70 @@ void vuePrincipale::utiliserPlateau(){
 //Appel la fonction piocher de la pioche
 void vuePrincipale::piocher(){
     plateau_->getJoueur()->setChevalet(pioch->piocher());
+    vector<joueur *> listeTMP = plateau_->getListeJoueur();
+    bool passer = false;
+    for(unsigned int i = 0; i < listeTMP.size(); ++i){
+        if(listeTMP.size() == 2){
+            if(listeTMP[i]->getId() == plateau_->getJoueur()->getId() && !passer){
+                if(i == 0){
+                    this->setChevalet(new chevaletJoueurDeux(listeTMP[i+1], boutonSlot_));
+                    plateau_->setJoueur(listeTMP[i+1]);
+                    passer = true;
+                }
+                else if(i == 1){
+                    this->setChevalet(new chevaletJoueurUn(listeTMP[0], boutonSlot_));
+                    plateau_->setJoueur(listeTMP[0]);
+                    passer = true;
+                }
+            }
+        }
+        if(listeTMP.size() == 3){
+            if(listeTMP[i]->getId() == plateau_->getJoueur()->getId() && !passer){
+                if(i == 0){
+                    this->setChevalet(new chevaletJoueurDeux(listeTMP[i+1], boutonSlot_));
+                    plateau_->setJoueur(listeTMP[i+1]);
+                    passer = true;
+                }
+                else if(i == 1){
+                    this->setChevalet(new chevaletJoueurTrois(listeTMP[i+1], boutonSlot_));
+                    plateau_->setJoueur(listeTMP[i+1]);
+                    passer = true;
+                }
+                else if(i == 2){
+                    this->setChevalet(new chevaletJoueurUn(listeTMP[0], boutonSlot_));
+                    plateau_->setJoueur(listeTMP[0]);
+                    passer = true;
+                }
+            }
+        }
+        if(listeTMP.size() == 4){
+            if(listeTMP[i]->getId() == plateau_->getJoueur()->getId() && !passer){
+                if(i == 0){
+                    this->setChevalet(new chevaletJoueurDeux(listeTMP[i+1], boutonSlot_));
+                    plateau_->setJoueur(listeTMP[i+1]);
+                    passer = true;
+                }
+                else if(i == 1){
+                    this->setChevalet(new chevaletJoueurTrois(listeTMP[i+1], boutonSlot_));
+                    plateau_->setJoueur(listeTMP[i+1]);
+                    passer = true;
+                }
+                else if(i == 2){
+                    this->setChevalet(new chevaletJoueurQuatre(listeTMP[i+1], boutonSlot_));
+                    plateau_->setJoueur(listeTMP[i+1]);
+                    passer = true;
+                }
+                else if(i == 4){
+                    this->setChevalet(new chevaletJoueurUn(listeTMP[0], boutonSlot_));
+                    plateau_->setJoueur(listeTMP[0]);
+                    passer = true;
+                }
+            }
+        }
+    }
+    passer = false;
     updateChevalet();
+    afficher();
 }
 
 
@@ -118,19 +177,54 @@ void vuePrincipale::verifier(){
     plateau_->enAttente();
     plateau_->faireVerif();
     plateau_->valider();
+    vector<joueur *> listeTMP = plateau_->getListeJoueur();
+    for(unsigned int i = 0; i < listeTMP.size(); ++i){
+        if(listeTMP.size() == 2){
+            cout << "2 j" << endl;
+            if(listeTMP[i]->getId() == plateau_->getJoueur()->getId() && i != listeTMP.size()-1){
+                if(i == 0){
+                    this->setChevalet(new chevaletJoueurDeux(listeTMP[i+1], boutonSlot_));
+                }
+                if(i == 1){
+                    this->setChevalet(new chevaletJoueurUn(listeTMP[0], boutonSlot_));
+                }
+            }
+        }
+        if(listeTMP.size() == 3){
+            cout << "3 j" << endl;
+            if(listeTMP[i]->getId() == plateau_->getJoueur()->getId() && i != listeTMP.size()-1){
+                if(i == 0)
+                    this->setChevalet(new chevaletJoueurDeux(listeTMP[i+1], boutonSlot_));
+                if(i == 1)
+                    this->setChevalet(new chevaletJoueurTrois(listeTMP[i+1], boutonSlot_));
+                if(i == 2)
+                    this->setChevalet(new chevaletJoueurUn(listeTMP[0], boutonSlot_));
+            }
+        }
+        if(listeTMP.size() == 4){
+            cout << "4 j" << endl;
+            if(listeTMP[i]->getId() == plateau_->getJoueur()->getId() && i != listeTMP.size()-1){
+                if(i == 0)
+                    this->setChevalet(new chevaletJoueurDeux(listeTMP[i+1], boutonSlot_));
+                if(i == 1)
+                    this->setChevalet(new chevaletJoueurTrois(listeTMP[i+1], boutonSlot_));
+                if(i == 2)
+                    this->setChevalet(new chevaletJoueurQuatre(listeTMP[i+1], boutonSlot_));
+                if(i == 4)
+                    this->setChevalet(new chevaletJoueurUn(listeTMP[0], boutonSlot_));
+            }
+        }
+    }
     updateChevalet();
     updatePlateau();
-}
+    afficher();
 
+}
 
 //Appel la fonction de trie du chevalet
 void vuePrincipale::trier(){
     plateau_->getJoueur()->getChevalet()->trierChevalet();
     updateChevalet();
-}
-
-void vuePrincipale::nouvelleListe(){
-
 }
 
 void vuePrincipale::updateChevalet(){
@@ -158,12 +252,24 @@ void vuePrincipale::updatePlateau(){
 //Changement de chevalet
 void vuePrincipale::setChevalet(choixChevalet * chevalet){
    chevaletWidget_->setVisible(false);
+   if(chevalet_ != NULL){
+       QLayoutItem *item;
+       while ((item = chevalet_->takeAt(0)) != 0) {
+           item->widget()->hide();
+       }
+   }
    delete chevaletWidget_->layout();
    chevalet_ = chevalet;
+   hud->setText("C'est au joueur : "+QString::number(plateau_->getJoueur()->getId())
+                +" score : "+QString::number(plateau_->getJoueur()->getScore()));
 }
 
 //réaffiche le chevalet
 void vuePrincipale::afficher(){
     chevaletWidget_->setLayout(chevalet_->utiliserChevalet());
     chevaletWidget_->setVisible(true);
+}
+
+void vuePrincipale::setListeChevalet(vector<choixChevalet *> l){
+    listeChevalet_ = l;
 }

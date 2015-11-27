@@ -10,7 +10,7 @@ using namespace std;
 class plateau
 {
 public:
-    plateau();
+    plateau(vector<joueur *>);
     etat *getState();
     etat *getStateVerif();
     etat *getStateValide();
@@ -31,6 +31,8 @@ public:
     void setJoueur(joueur *);
     joueur *getJoueur();
     void ajouterTuile(tuile *);
+    void setListeJoueur(vector<joueur *>);
+    vector<joueur *> getListeJoueur();
 
 private:
     etat * etatAttente_;
@@ -40,6 +42,7 @@ private:
     vector<vector<tuile *> > mat_;
     vector<tuile *> tab_;
     joueur * joueur_;
+    vector<joueur *> listeJoueur_;
 };
 
 #endif // PLATEAU_H

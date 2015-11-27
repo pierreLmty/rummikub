@@ -1,4 +1,4 @@
-#include "Vue/chevaletjoueurdeux.h"
+#include "Vue/chevaletjoueurtrois.h"
 #include <QPushButton>
 #include <QSettings>
 #include <QSignalMapper>
@@ -7,14 +7,15 @@
 
 using namespace std;
 
-chevaletJoueurDeux::chevaletJoueurDeux(joueur * j, boutonSlot * buttonS){
+chevaletJoueurTrois::chevaletJoueurTrois(joueur * j, boutonSlot * buttonS){
     joueur_ = j;
     bu = buttonS;
 }
 
 
-QLayout *chevaletJoueurDeux::utiliserChevalet(){
+QLayout *chevaletJoueurTrois::utiliserChevalet(){
     this->setColumnMinimumWidth(12, 0);
+
     QSignalMapper *signalMapper = new QSignalMapper(bu);
     QObject::connect(signalMapper, SIGNAL(mapped(QString)), bu, SLOT(creerBoutonChevalet(QString)));
     vector<tuile *> chevalet = joueur_->getChevalet()->getChevalet();
@@ -39,6 +40,7 @@ QLayout *chevaletJoueurDeux::utiliserChevalet(){
             else if(i < 56){
                 this->addWidget(button, 3, i-42);
             }
+
             //Mappage, puis connexion du signal au mapper
             signalMapper->setMapping(button, "image/"+val+"_"+couleur+".png");
             QObject::connect(button, SIGNAL(clicked()), signalMapper, SLOT(map()));

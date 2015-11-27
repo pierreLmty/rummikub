@@ -35,11 +35,11 @@ void verification::faireVerif(){
     bool boolProbNumeroBC = false;
     bool boolVerifSuite = false;
     bool boolVerifBC = false;
-    bool firstMainOK = false;
 
     //Affiche le tab tempo
     for(int i = 0; i < tab.size(); ++i){
-        cout << tab[i]->getCouleur() << " " << tab[i]->getValeur();
+        if(tab[i] != NULL)
+           cout << tab[i]->getCouleur() << " " << tab[i]->getValeur();
     }
 
     boolProbCouleurSuite = problemeCouleurSuite(tab);
@@ -297,33 +297,21 @@ bool verification::verifBC(vector<tuile *> listAVerif, bool boolProbCouleurBC, b
 }
 
 /**
-* \fn bool firstMain(vector<tuile *> listAVerif, bool boolVerifSuiteOk, bool boolVerifBCOK)
-* \brief Intervient seulement lors du premier tour d'un joueur. Compte le nombre de joker et utilise les résultats des booleens boolVerifSuiteOK et boolVerifBCOK pour renvoyer un booleen firstMainOK à Vrai ou à Faux.
-* \param listAVerif La liste de tuile à vérifier
-* \param boolVerifSuiteOk Indique si la liste de type suite est valide ou non
-* \param boolVerifBCOK Indique si la liste de type BC est valide ou non
+* \fn bool compteur30Points(vector<tuile *> matAVerif)
+* \brief Intervient seulement lors du premier tour d'un joueur. Compte le nombre de joker, si l'ensemble des tuiles fait 30 points ou plus et si elles ne viennent pas du plateau de jeu.
+* \param matAVerif La liste de tuile à vérifier
 * \return Retourne Vrai s'il n'y a pas de problème sinon Faux
 */
-bool verification::firstMain(vector<tuile *> listAVerif){
-    bool firstMainOK = true;
-   // bool compteur = compteur30Points(listAVerif);
-
-    return firstMainOK;
-}
-
 bool verification::compteur30Points(vector<tuile *> matAVerif){
-    cout << "ee";
     int score = 0;
     bool compteurOK = true;
 
     for(unsigned int i = 0; i < matAVerif.size(); ++i){
-     //   for(unsigned int j = 0; j < matAVerif.size(); ++j){
             if(matAVerif[i] != NULL && (matAVerif[i]->getValeur() == 30 || matAVerif[i]->getEmplacement() == 2)){
                 compteurOK = false;
             }
 
             if(matAVerif[i] != NULL) score += matAVerif[i]->getValeur();
-      //  }
     }
     cout << "score de la liste/matrice : " << score << " "<< compteurOK << endl;
     if(score < 30) compteurOK = false;

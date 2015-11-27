@@ -1,4 +1,4 @@
-#include "Vue/chevaletjoueurdeux.h"
+#include "Vue/chevaletjoueurquatre.h"
 #include <QPushButton>
 #include <QSettings>
 #include <QSignalMapper>
@@ -7,13 +7,13 @@
 
 using namespace std;
 
-chevaletJoueurDeux::chevaletJoueurDeux(joueur * j, boutonSlot * buttonS){
+chevaletJoueurQuatre::chevaletJoueurQuatre(joueur * j, boutonSlot * buttonS){
     joueur_ = j;
     bu = buttonS;
 }
 
 
-QLayout *chevaletJoueurDeux::utiliserChevalet(){
+QLayout *chevaletJoueurQuatre::utiliserChevalet(){
     this->setColumnMinimumWidth(12, 0);
     QSignalMapper *signalMapper = new QSignalMapper(bu);
     QObject::connect(signalMapper, SIGNAL(mapped(QString)), bu, SLOT(creerBoutonChevalet(QString)));

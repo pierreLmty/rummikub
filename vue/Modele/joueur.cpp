@@ -10,9 +10,10 @@
 
 using namespace std;
 
-joueur::joueur(){
+joueur::joueur(int id) : id_(id){
     firstMain_ = true;
     chevalet_ = new chevalet;
+    score_ = 0;
 }
 
 /**

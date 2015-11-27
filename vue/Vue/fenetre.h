@@ -12,6 +12,9 @@
 #include "Modele/pioche.h"
 #include "choixchevalet.h"
 #include "chevaletjoueurun.h"
+#include "chevaletjoueurdeux.h"
+#include "chevaletjoueurtrois.h"
+#include "chevaletjoueurquatre.h"
 #include <vector>
 
 class fenetre : public QStackedWidget
@@ -22,6 +25,7 @@ class fenetre : public QStackedWidget
         void nbJoueur2();
         void nbJoueur3();
         void nbJoueur4();
+        void main();
     public slots:
         void changerFenetre(QString name);
 
@@ -40,6 +44,7 @@ class fenetre : public QStackedWidget
         joueur * joueurTrois_;
         joueur * joueurQuatre_;
         vector<joueur *> listeJoueur_;
+        vector<choixChevalet *> listeChevalet_;
 };
 
 #endif // FENETRE_H

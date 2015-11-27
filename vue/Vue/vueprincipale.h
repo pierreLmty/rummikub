@@ -14,6 +14,7 @@
 #include "boutonslot.h"
 #include "Modele/pioche.h"
 #include "fenetre.h"
+#include <vector>
 
 class vuePrincipale : public vue
 {
@@ -26,6 +27,7 @@ class vuePrincipale : public vue
         void afficher();
         void utiliserPlateau();
         void updatePlateau();
+        void setListeChevalet(vector<choixChevalet *>);
 
     signals:
         void changeInterface(QString name);
@@ -39,17 +41,16 @@ class vuePrincipale : public vue
         QPushButton * pioche_;
         QPushButton * verifier_;
         QPushButton * trier_;
-        QPushButton * ajoutListe_;
         plateau * plateau_;
         pioche * pioch;
         boutonSlot * boutonSlot_;
         QLabel * hud;
+        vector<choixChevalet *> listeChevalet_;
 
     public slots:
         void piocher();
         void verifier();
         void trier();
-        void nouvelleListe();
 };
 
 #endif // VUEPRINCIPALE_H

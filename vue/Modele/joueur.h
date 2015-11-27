@@ -8,7 +8,7 @@ using namespace std;
 class joueur
 {
     public:
-        joueur();
+        joueur(int);
         bool getFirstMain();
         void setFirstMain(bool);
         int getId();

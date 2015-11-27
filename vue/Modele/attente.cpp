@@ -1,6 +1,6 @@
 /**
 * \file attente.cpp
-* \author Lemétayer Pierre - Mael Quemard
+* \author Lemétayer Pierre - Maël Quémard
 * \version 1.0
 * \date 16 Novembre 2015
 * \brief Définit l'état d'attente du plateau
@@ -32,7 +32,6 @@ void attente::enAttente(){
     }
     else{
         afficher();
-      //  enAttente();
     }
 }
 

@@ -17,15 +17,13 @@ using namespace std;
 /**
 * \brief Constructeur de la classe plateau.cpp
 */
-plateau::plateau(){
-    etatCourant_ = new attente(this);
-    etatAttente_ = new attente(this);
-    etatVerification_ = new verification(this);
-    etatValide_ = new valide(this);
-    mat_.resize(13, std::vector<tuile *>(13, NULL));
-    mat_[0][0];
-    //tab_.resize(13, std::vector<tuile *>(13, NULL));
-}
+plateau::plateau(vector<joueur *> listeJoueur)
+    : etatCourant_(new attente(this)),
+      etatAttente_(new attente(this)),
+      etatVerification_(new verification(this)),
+      etatValide_(new valide(this)),
+      mat_(std::vector<std::vector<tuile *> >(13, std::vector<tuile *>(13, NULL))),
+      listeJoueur_(listeJoueur){}
 
 /**
 * \fn etat * getState()
@@ -101,21 +99,6 @@ void plateau::enAttente(){
 * \brief Affiche le plateau de jeu (mode console uniquement)
 */
 void plateau::afficher(){
-   /* cout << endl;
-    for(unsigned int i=0; i < mat_.size(); ++i){
-        for(unsigned int j=0; j < mat_.size(); ++j){
-            cout << "|";
-            if(mat_[i][j] != NULL){
-                cout << mat_[i][j]->getValeur() << " ";
-                cout << mat_[i][j]->getCouleur();
-            }
-            else{
-                cout << 0;
-            }
-//            cout << "|";
-        }
-        cout << "|" << endl;
-    }*/
     etatCourant_->afficher();
 }
 
@@ -144,12 +127,6 @@ void plateau::setList(tuile * a, int indice){
 */
 bool plateau::emptyList(){
    return tab_.empty();
-    /*for(unsigned int i = 0; i < tab_.size(); ++i){
-        if(!tab_[i].empty()){
-            return false;
-        }
-    }
-    return true;*/
 }
 
 /**
@@ -158,9 +135,6 @@ bool plateau::emptyList(){
 */
 void plateau::clearTab(){
   tab_.clear();
-    /* for(unsigned int i = 0; i < tab_.size(); ++i){
-        tab_[i].clear();
-    }*/
 }
 
 /**
@@ -211,17 +185,13 @@ tuile *plateau::getTuile(int val, string couleur){
 * \param t La tuile à supprimer
 */
 void plateau::retirerTuile(tuile * t){
-    /*for(vector<vector<tuile *> >::iterator i = mat_->begin(); i != mat_->end(); ++i){
-        if(i->pointer == t){
-            mat_->erase(i);
-        }
-    }*/
     for(unsigned int i = 0; i < mat_.size(); ++i){
         for(unsigned int j = 0; j < mat_.size(); ++j){
             if(mat_[i][j] != NULL){
                 if(mat_[i][j] == t){
                     mat_[i].erase(mat_[i].begin()+j);
-                }
+                    mat_[i].push_back(NULL);
+               }
             }
         }
     }
@@ -246,10 +216,13 @@ joueur *plateau::getJoueur(){
 }
 
 void plateau::ajouterTuile(tuile * t){
-   /* for(unsigned int i = 0; i < tab_.size(); ++i){
-        if(i == 0){
-            tab_[i].push_back(t);
-        }
-    }*/
     tab_.push_back(t);
+}
+
+void plateau::setListeJoueur(vector<joueur *> j){
+    listeJoueur_ = j;
+}
+
+vector<joueur *> plateau::getListeJoueur(){
+    return listeJoueur_;
 }

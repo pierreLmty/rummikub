@@ -52,35 +52,17 @@ void valide::valider(){
         plateau_->afficher();
         plateau_->clearTab();
 
-    /*vector<vector<tuile *> > tab = plateau_->getList();
-    vector<vector<tuile *> > mat;
-    for(unsigned int i = 0; i < tab.size(); ++i){
-        for(unsigned int j = 0; j < mat.size(); ++j){
-            if(tab[i][j] != NULL){
-                if(tab[i][j]->getEmplacement() == 1){
-                    plateau_->getJoueur()->retirerTuile(tab[i][j]);
-                }
-                if(tab[i][j]->getEmplacement() == 2){
-                    plateau_->retirerTuile(tab[i][j]);
-                }
+        vector<joueur *> listeTMP = plateau_->getListeJoueur();
+        for(unsigned int i = 0; i < listeTMP.size(); ++i){
+            if(listeTMP[i]->getId() == plateau_->getJoueur()->getId() && i != listeTMP.size()-1){
+                cout << "Joueur 1";
+                plateau_->setJoueur(listeTMP[i+1]);
+            }
+            else if(listeTMP[i]->getId() == plateau_->getJoueur()->getId()){
+                cout << "joueur 2";
+                plateau_->setJoueur(listeTMP[0]);
             }
         }
-    }
-    mat = plateau_->getPlateau();
-    int k = 0;
-    for(unsigned int i = 0; i<mat.size(); ++i){
-        for(unsigned int j =0; j<mat.size(); ++j){
-            if(tab[k][0] == NULL){
-                if(mat[i][0] == NULL){
-                    plateau_->setPlateau(tab[k].front(), i, j);
-                    tab[k].erase(tab[k].begin());
-                    ++k;
-                }
-            }
-        }
-    }
-    plateau_->setState(plateau_->getStateAttente());
-    plateau_->afficher();*/
 }
 
 /**

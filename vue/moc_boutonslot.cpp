@@ -22,7 +22,7 @@ static const uint qt_meta_data_boutonSlot[] = {
        6,       // revision
        0,       // classname
        0,    0, // classinfo
-       1,   14, // methods
+       2,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -31,12 +31,14 @@ static const uint qt_meta_data_boutonSlot[] = {
 
  // slots: signature, parameters, type, tag, flags
       12,   11,   11,   11, 0x0a,
+      41,   11,   11,   11, 0x0a,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_boutonSlot[] = {
-    "boutonSlot\0\0creerBouton(QString)\0"
+    "boutonSlot\0\0creerBoutonChevalet(QString)\0"
+    "creerBoutonPlateau(QString)\0"
 };
 
 void boutonSlot::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void **_a)
@@ -45,7 +47,8 @@ void boutonSlot::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, 
         Q_ASSERT(staticMetaObject.cast(_o));
         boutonSlot *_t = static_cast<boutonSlot *>(_o);
         switch (_id) {
-        case 0: _t->creerBouton((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 0: _t->creerBoutonChevalet((*reinterpret_cast< QString(*)>(_a[1]))); break;
+        case 1: _t->creerBoutonPlateau((*reinterpret_cast< QString(*)>(_a[1]))); break;
         default: ;
         }
     }
@@ -83,9 +86,9 @@ int boutonSlot::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 1)
+        if (_id < 2)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 1;
+        _id -= 2;
     }
     return _id;
 }

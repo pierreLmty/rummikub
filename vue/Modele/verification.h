@@ -20,7 +20,6 @@ class verification : public etat
         bool problemeNumeroBC(vector<tuile *>);
         bool verifSuite(vector<tuile *>, bool, bool);
         bool verifBC(vector<tuile *>, bool, bool);
-        bool firstMain(vector<tuile *>);
         bool compteur30Points(vector<tuile *>);
         void enAttente(){}
         void valider(){}

@@ -15,7 +15,7 @@ chevaletJoueurUn::chevaletJoueurUn(joueur * j, boutonSlot * buttonS){
 
 QLayout *chevaletJoueurUn::utiliserChevalet(){
     this->setColumnMinimumWidth(12, 0);
-   // boutonSlot * bu = new boutonSlot;
+
     QSignalMapper *signalMapper = new QSignalMapper(bu);
     QObject::connect(signalMapper, SIGNAL(mapped(QString)), bu, SLOT(creerBoutonChevalet(QString)));
     vector<tuile *> chevalet = joueur_->getChevalet()->getChevalet();
