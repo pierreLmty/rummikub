@@ -3,62 +3,46 @@
 #include <QSettings>
 #include <QSignalMapper>
 #include <QMessageBox>
-#include "Vue/boutonslot.h"
+#include <typeinfo>
 
 using namespace std;
 
-chevaletJoueurDeux::chevaletJoueurDeux(joueur * j){
+chevaletJoueurDeux::chevaletJoueurDeux(joueur * j, boutonSlot * buttonS){
     joueur_ = j;
+    bu = buttonS;
 }
 
+
 QLayout *chevaletJoueurDeux::utiliserChevalet(){
-
     this->setColumnMinimumWidth(12, 0);
-    QSettings iniFile("chevalet2.ini", QSettings::IniFormat);
-    iniFile.beginGroup("Buttons");
-
-    boutonSlot * b = new boutonSlot;
-    //Déclaration du mapper, qu'on connecte au slot
-    QSignalMapper *signalMapper = new QSignalMapper(b);
-    QObject::connect(signalMapper, SIGNAL(mapped(QString)), b, SLOT(creerBouton(QString)));
-
-    //Lecture d'un tableau de clés
-    foreach(QString key, iniFile.childKeys()) {
-        //Récupération du nom du bouton
-        QString buttonName(iniFile.value(key,"").toString());
-        QPushButton *button = new QPushButton;
-        button->setIcon(QIcon("image/"+buttonName+".png"));
-        button->setFixedSize(65,65);
-        button->setIconSize(QSize(65,65));
-        //button->setText(buttonName);
-        this->addWidget(button);
-
-        //Mappage, puis connexion du signal au mapper
-        signalMapper->setMapping(button, buttonName);
-        QObject::connect(button, SIGNAL(clicked()), signalMapper, SLOT(map()));
+   // boutonSlot * bu = new boutonSlot;
+    QSignalMapper *signalMapper = new QSignalMapper(bu);
+    QObject::connect(signalMapper, SIGNAL(mapped(QString)), bu, SLOT(creerBoutonChevalet(QString)));
+    vector<tuile *> chevalet = joueur_->getChevalet()->getChevalet();
+    for(unsigned int i = 0; i < chevalet.size(); ++i){
+            QPushButton *button = new QPushButton;
+            QString val;
+            val = QString::number(chevalet[i]->getValeur());
+            QString couleur;
+            couleur = QString::fromStdString(chevalet[i]->getCouleur());
+            button->setIcon(QIcon("image/"+val+"_"+couleur+".png"));
+            button->setFixedSize(45,45);
+            button->setIconSize(QSize(45,45));
+            if(i < 14){
+                this->addWidget(button,0,i);
+            }
+            else if(i < 28){
+                this->addWidget(button, 1, i-14);
+            }
+            else if(i < 42){
+                this->addWidget(button, 2, i-28);
+            }
+            else if(i < 56){
+                this->addWidget(button, 3, i-42);
+            }
+            //Mappage, puis connexion du signal au mapper
+            signalMapper->setMapping(button, "image/"+val+"_"+couleur+".png");
+            QObject::connect(button, SIGNAL(clicked()), signalMapper, SLOT(map()));
     }
-    iniFile.endGroup();
     return this;
-    /*
-    this->setColumnMinimumWidth(12, 0);
-    QPushButton * button1 = new QPushButton;
-    QPushButton * button2 = new QPushButton;
-    QPushButton * button3 = new QPushButton;
-
-    button1->setIcon(QIcon("image/2.png"));
-    button1->setFixedSize(40,60);
-    button1->setIconSize(QSize(40,60));
-
-    button2->setIcon(QIcon("image/2.png"));
-    button2->setFixedSize(40,60);
-    button2->setIconSize(QSize(40,60));
-
-    button3->setIcon(QIcon("image/2.png"));
-    button3->setFixedSize(40,60);
-    button3->setIconSize(QSize(40,60));
-
-    this->addWidget(button1);
-    this->addWidget(button2);
-    this->addWidget(button3);
-    return this;*/
 }

@@ -12,10 +12,10 @@ using namespace std;
 //param : plateau
 //param : pioche
 //param : boutonSlot
-vuePrincipale::vuePrincipale(choixChevalet * chevalet, plateau * p, pioche * laPioche, boutonSlot * b)
+vuePrincipale::vuePrincipale(plateau * p, pioche * laPioche, boutonSlot * b, QWidget * f, QString name)
 {
     //Variables
-    chevalet_ = chevalet;
+   // chevalet_ = chevalet;
     plateau_ = p;
     layoutPrincipale_ = new QVBoxLayout;
     layoutDessous_ = new QHBoxLayout;
@@ -24,9 +24,11 @@ vuePrincipale::vuePrincipale(choixChevalet * chevalet, plateau * p, pioche * laP
     pioche_ = new QPushButton("piocher");
     verifier_ = new QPushButton("verifier");
     trier_ = new QPushButton("Trier chevalet");
+    ajoutListe_ = new QPushButton("Ajouter une liste");
     chevaletWidget_ = new QWidget;
     pioch = laPioche;
     boutonSlot_ = b;
+    hud = new QLabel;
 
     //Taille du plateau graphique
     layout_->setRowMinimumHeight(12, 0);
@@ -41,14 +43,17 @@ vuePrincipale::vuePrincipale(choixChevalet * chevalet, plateau * p, pioche * laP
         }
     }
 
-    pioche_->setFixedSize(65,35);
-    verifier_->setFixedSize(65,35);
-    trier_->setFixedSize(100,35);
+    pioche_->setFixedSize(120,35);
+    verifier_->setFixedSize(120,35);
+    trier_->setFixedSize(120,35);
+    ajoutListe_->setFixedSize(120,35);
 
     //Ajout des différents layouts et boutons
     layoutInfo_->addWidget(pioche_);
     layoutInfo_->addWidget(verifier_);
     layoutInfo_->addWidget(trier_);
+    layoutInfo_->addWidget(ajoutListe_);
+    layoutPrincipale_->addWidget(hud);
     layoutPrincipale_->addLayout(layout_);
     layoutPrincipale_->addLayout(layoutDessous_);
     layoutDessous_->addWidget(chevaletWidget_);
@@ -59,9 +64,11 @@ vuePrincipale::vuePrincipale(choixChevalet * chevalet, plateau * p, pioche * laP
     QObject::connect(pioche_, SIGNAL(clicked()), this, SLOT(piocher()));
     QObject::connect(verifier_, SIGNAL(clicked()), this, SLOT(verifier()));
     QObject::connect(trier_, SIGNAL(clicked()), this, SLOT(trier()));
+    QObject::connect(ajoutListe_, SIGNAL(clicked()), this, SLOT(nouvelleListe()));
     plateau_->enAttente();
+    this->setObjectName(name);
+    connect(this,SIGNAL(changeInterface(QString)),qobject_cast<fenetre *>(f),SLOT(changerFenetre(QString)));
 }
-
 
 //Récupère les tuiles du Plateau
 void vuePrincipale::utiliserPlateau(){
@@ -120,6 +127,10 @@ void vuePrincipale::verifier(){
 void vuePrincipale::trier(){
     plateau_->getJoueur()->getChevalet()->trierChevalet();
     updateChevalet();
+}
+
+void vuePrincipale::nouvelleListe(){
+
 }
 
 void vuePrincipale::updateChevalet(){

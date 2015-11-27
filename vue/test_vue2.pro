@@ -23,7 +23,9 @@ HEADERS += \
     Vue/choixchevalet.h \
     Vue/chevaletjoueurun.h \
     Vue/chevaletjoueurdeux.h \
-    Vue/boutonslot.h
+    Vue/boutonslot.h \
+    Vue/vuechoixjoueur.h \
+    Vue/fenetre.h
 
 SOURCES += \
     Modele/attente.cpp \
@@ -45,7 +47,9 @@ SOURCES += \
     Vue/chevaletjoueurun.cpp \
     Vue/chevaletjoueurdeux.cpp \
     Vue/boutonslot.cpp \
-    main.cpp
+    main.cpp \
+    Vue/vuechoixjoueur.cpp \
+    Vue/fenetre.cpp
 
 DISTFILES += \
     Modele/attente.o \
